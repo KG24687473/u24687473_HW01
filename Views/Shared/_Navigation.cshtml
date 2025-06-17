@@ -1,0 +1,11 @@
+﻿<nav class="navbar">
+    <div class="navbar-brand">
+        @Html.ActionLink("RescueBus", "Index", "Home", null, new { @class = "logo" })
+    </div>
+    <ul class="nav-links">
+        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+        <li>@Html.ActionLink("Ride History", "RideHistory", "Home")</li>
+        <li>@Html.ActionLink("Manage", "Manage", "Manage")</li>
+    </ul>
+</nav>
+

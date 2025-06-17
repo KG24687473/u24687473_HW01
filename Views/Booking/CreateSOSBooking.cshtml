@@ -1,0 +1,76 @@
+﻿@{
+    ViewData["Title"] = "Emergency Response";
+}
+
+<div class="booking-form-container sos-form">
+    <div class="booking-form-header">
+        <h2>
+            <i class="fas fa-bolt"></i>
+            EMERGENCY S.O.S. REQUEST
+            <span class="service-badge">PRIORITY 1</span>
+        </h2>
+    </div>
+
+    <div class="booking-form-content">
+        <form id="sosForm">
+            <div class="form-grid">
+                <div class="form-group full-width emergency-alert">
+                    <div class="alert-icon">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <h3>Life-Threatening Emergency Protocol Activated</h3>
+                    <p>Nearest available unit is being dispatched to your location</p>
+                </div>
+
+                <div class="form-group">
+                    <label for="sosPatientName" class="form-label required">Patient Name</label>
+                    <input type="text" id="sosPatientName" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="sosContactNumber" class="form-label required">Contact Number</label>
+                    <input type="tel" id="sosContactNumber" class="form-control" required>
+                </div>
+
+                <div class="form-group full-width">
+                    <label for="sosLocation" class="form-label required">Exact Location</label>
+                    <input type="text" id="sosLocation" class="form-control" placeholder="Street address, landmark, or GPS coordinates" required>
+                </div>
+
+                <div class="form-group full-width">
+                    <label for="sosCondition" class="form-label required">Emergency Details</label>
+                    <textarea id="sosCondition" class="form-control" placeholder="Describe the emergency (e.g. chest pain, unconscious, severe bleeding)" required></textarea>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn-submit">
+                        <i class="fas fa-bolt"></i> CONFIRM S.O.S.
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Auto-detect location if possible
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(position => {
+                    const locInput = document.getElementById('sosLocation');
+                    locInput.value = `GPS: ${position.coords.latitude}, ${position.coords.longitude}`;
+                });
+            }
+
+            // Form submission
+            document.getElementById('sosForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                // Handle emergency submission
+                alert('Emergency dispatch confirmed!');
+                window.location.href = '@Url.Action("BookingConfirmed", "Booking", new { isEmergency = true })';
+            });
+        });
+    </script>
+}
+

@@ -1,0 +1,68 @@
+﻿@model u24687473_HW01.Models.Booking
+
+@{
+    var isEmergency = u24687473_HW01.Models.Booking.IsEmergency;
+    ViewData["Title"] = "Booking Confirmed";
+}
+
+<div class="confirmation-container">
+    <div class="confirmation-header @(isEmergency ? "sos-header" : "")">
+        <h2>
+            <i class="fas @(isEmergency ? "fa-bolt" : "fa-check-circle")"></i>
+            @(isEmergency ? "EMERGENCY DISPATCH CONFIRMED" : "BOOKING CONFIRMED")
+            <span class="confirmation-badge">
+                @(isEmergency ? "PRIORITY 1" : "CONFIRMED")
+            </span>
+        </h2>
+    </div>
+
+    <div class="confirmation-details">
+        <div class="detail-grid">
+            <div class="detail-card">
+                <h3>Booking Reference</h3>
+                <p>@Model.Id</p>
+            </div>
+            <div class="detail-card">
+                <h3>Date & Time</h3>
+                <p>@Model.BookingDate.ToString("f")</p>
+            </div>
+            <div class="detail-card">
+                <h3>Patient Name</h3>
+                <p>@Model.PatientName</p>
+            </div>
+            <div class="detail-card">
+                <h3>Service Type</h3>
+                <p>@Model.ServiceType</p>
+            </div>
+        </div>
+
+        <div class="resource-section">
+            <div class="resource-card">
+                <img src="@Model.Driver.ImagePath" class="resource-img" alt="Assigned Paramedic">
+                <div class="resource-info">
+                    <h3>@Model.Driver.Name</h3>
+                    <p>@Model.Driver.LicenseNumber</p>
+                    <p>@Model.Driver.Specialization</p>
+                </div>
+            </div>
+
+            <div class="resource-card">
+                <img src="@Model.Vehicle.ImagePath" class="resource-img" alt="Assigned Vehicle">
+                <div class="resource-info">
+                    <h3>@Model.Vehicle.LicensePlate</h3>
+                    <p>@Model.Vehicle.VehicleType</p>
+                    <p>@string.Join(", ", Model.Vehicle.Equipment)</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="confirmation-actions">
+            <a href="@Url.Action("RideHistory", "Home")" class="btn-confirmation">
+                <i class="fas fa-history"></i> View Ride History
+            </a>
+            <a href="@Url.Action("Index", "Home")" class="btn-confirmation" style="margin-left: 0.5rem;">
+                <i class="fas fa-home"></i> Return Home
+            </a>
+        </div>
+    </div>
+</div>

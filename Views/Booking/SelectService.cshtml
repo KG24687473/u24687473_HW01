@@ -1,0 +1,62 @@
+﻿@{
+    ViewData["Title"] = "Dispatch Services";
+}
+
+<div class="service-grid">
+    <div class="service-header">
+        <h1>Medical Response Services</h1>
+        <p>Select the appropriate level of care for your situation</p>
+    </div>
+
+    <div class="service-cards">
+        <!-- Critical Care -->
+        <div class="service-card critical">
+            <div class="card-icon">
+                <i class="fas fa-heartbeat"></i>
+            </div>
+            <h3>Critical Care Transport</h3>
+            <p>Advanced Life Support for patients requiring continuous medical monitoring and intervention during transport.</p>
+            <a href="@Url.Action("Booking", "Booking", new { serviceType = "Advanced Life Support" })" class="btn-service">
+                Request ALS <i class="fas fa-chevron-right"></i>
+            </a>
+        </div>
+
+        <!-- Emergency Transport -->
+        <div class="service-card">
+            <div class="card-icon">
+                <i class="fas fa-ambulance"></i>
+            </div>
+            <h3>Emergency Transport</h3>
+            <p>Basic Life Support for urgent but stable patients requiring medical supervision during transport.</p>
+            <a href="@Url.Action("Booking", "Booking", new { serviceType = "Basic Life Support" })" class="btn-service">
+                Request BLS <i class="fas fa-chevron-right"></i>
+            </a>
+        </div>
+
+        <!-- Patient Transport -->
+        <div class="service-card">
+            <div class="card-icon">
+                <i class="fas fa-procedures"></i>
+            </div>
+            <h3>Patient Transport</h3>
+            <p>Non-emergency transport for medical appointments, discharges, and facility transfers.</p>
+            <a href="@Url.Action("Booking", "Booking", new { serviceType = "Patient Transport" })" class="btn-service">
+                Request Transport <i class="fas fa-chevron-right"></i>
+            </a>
+        </div>
+
+        <!-- Emergency Callout -->
+        <div class="emergency-callout">
+            <div class="callout-content">
+                <i class="fas fa-exclamation-triangle"></i>
+                <div>
+                    <h3>Life-Threatening Emergency?</h3>
+                    <p>Immediate dispatch of nearest available unit</p>
+                </div>
+            </div>
+            <a href="@Url.Action("CreateSOSBooking", "Booking")" class="btn-sos">
+                <i class="fas fa-bolt"></i> S.O.S. RESPONSE
+            </a>
+        </div>
+    </div>
+</div>

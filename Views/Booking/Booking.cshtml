@@ -1,0 +1,105 @@
+﻿@{
+    var serviceType = ViewBag.ServiceType as string;
+    ViewData["Title"] = serviceType + " Booking";
+}
+
+<div class="booking-form-container">
+    <div class="booking-form-header">
+        <h2>
+            <i class="fas fa-ambulance"></i>
+            @serviceType Booking
+            <span class="service-badge">NON-EMERGENCY</span>
+        </h2>
+    </div>
+
+    <div class="booking-form-content">
+        <form id="bookingForm">
+            <input type="hidden" id="serviceType" value="@serviceType" />
+
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="patientName" class="form-label required">Patient Full Name</label>
+                    <input type="text" id="patientName" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="contactNumber" class="form-label required">Contact Number</label>
+                    <input type="tel" id="contactNumber" class="form-control" required>
+                </div>
+
+                <div class="form-group full-width">
+                    <label for="location" class="form-label required">Pickup Location</label>
+                    <input type="text" id="location" class="form-control" required>
+                </div>
+
+                <div class="form-group full-width">
+                    <label for="medicalCondition" class="form-label required">Medical Condition</label>
+                    <textarea id="medicalCondition" class="form-control" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="vehicleSelect" class="form-label required">Ambulance Type</label>
+                    <select id="vehicleSelect" class="form-control" required>
+                        <option value="">Select vehicle...</option>
+                        <!-- Options populated by JavaScript -->
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="driverSelect" class="form-label required">Medical Team</label>
+                    <select id="driverSelect" class="form-control" required>
+                        <option value="">Select paramedic...</option>
+                        <!-- Options populated by JavaScript -->
+                    </select>
+                </div>
+
+                <div class="form-actions">
+                    <a href="@Url.Action("SelectService", "Booking")" class="btn-submit" style="background: #64748b;">
+                        <i class="fas fa-arrow-left"></i> Back
+                    </a>
+                    <button type="submit" class="btn-submit">
+                        Confirm Booking <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Populate vehicle and driver options
+            const vehicles = [
+                { id: 'als1', name: 'ALS Unit #1' },
+                { id: 'bls3', name: 'BLS Unit #3' }
+            ];
+
+            const drivers = [
+                { id: 'drv1', name: 'Dr. Sarah Miller' },
+                { id: 'drv2', name: 'Paramedic James Wilson' }
+            ];
+
+            const populateSelect = (selectId, items) => {
+                const select = document.getElementById(selectId);
+                items.forEach(item => {
+                    const option = document.createElement('option');
+                    option.value = item.id;
+                    option.textContent = item.name;
+                    select.appendChild(option);
+                });
+            };
+
+            populateSelect('vehicleSelect', vehicles);
+            populateSelect('driverSelect', drivers);
+
+            // Form submission
+            document.getElementById('bookingForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                // Handle form submission
+                alert('Booking submitted!');
+                // window.location.href = '@Url.Action("BookingConfirmed", "Booking")';
+            });
+        });
+    </script>
+}

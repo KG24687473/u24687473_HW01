@@ -1,0 +1,19 @@
+﻿@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="home-container">
+    <h1>Emergency Ambulance Services</h1>
+    <div class="action-buttons">
+        <a href="@Url.Action("SelectService", "Booking")" class="btn-primary">BOOK AMBULANCE</a>
+        <button id="sosButton" class="sos-btn">S.O.S EMERGENCY</button>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.getElementById('sosButton').addEventListener('click', function() {
+            window.location.href = '@Url.Action("CreateSOSBooking", "Booking")';
+        });
+    </script>
+}
