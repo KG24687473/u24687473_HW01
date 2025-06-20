@@ -1,45 +1,6 @@
-﻿@model List<Booking> 
-
+﻿
 @{
-    ViewData["Title"] = "Ride History";
+    ViewBag.Title = "RideHistory";
 }
 
-<div class="history-container">
-    <div class="history-header">
-        <h1><i class="fas fa-history"></i> Ride History</h1>
-    </div>
-
-    @if (Model.Any())
-    {
-        <div class="history-list">
-            @foreach (var booking in Model.OrderByDescending(b => b.BookingDate))
-            {
-                <a href="@Url.Action("BookingDetails", "Home", new { id = booking.Id })" class="history-card @(booking.IsEmergency ? "sos-card" : "")">
-                    <div class="history-card-header">
-                        <h3>@booking.ServiceType</h3>
-                        <span class="history-badge">
-                            @(booking.IsEmergency ? "EMERGENCY" : booking.BookingDate.ToString("d"))
-                        </span>
-                    </div>
-                    <div class="history-card-details">
-                        <p><strong>Patient:</strong> @booking.PatientName</p>
-                        <p><strong>Location:</strong> @booking.Location</p>
-                        <p><strong>Status:</strong> @(booking.IsEmergency ? "Priority Response" : "Scheduled")</p>
-                    </div>
-                </a>
-            }
-        </div>
-    }
-    else
-    {
-        <div class="no-history">
-            <i class="fas fa-ambulance" style="font-size: 3rem; color: #e2e8f0; margin-bottom: 1rem;"></i>
-            <h3>No Ride History Found</h3>
-            <p>Your booked rides will appear here</p>
-            <a href="@Url.Action("SelectService", "Booking")" class="btn-confirmation" style="margin-top: 1rem;">
-                <i class="fas fa-ambulance"></i> Book a Ride
-            </a>
-        </div>
-    }
-</div>
-
+<h2>Ride History</h2>

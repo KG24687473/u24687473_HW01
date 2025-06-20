@@ -2,18 +2,270 @@
     ViewData["Title"] = "Home";
 }
 
-<div class="home-container">
-    <h1>Emergency Ambulance Services</h1>
-    <div class="action-buttons">
-        <a href="@Url.Action("SelectService", "Booking")" class="btn-primary">BOOK AMBULANCE</a>
-        <button id="sosButton" class="sos-btn">S.O.S EMERGENCY</button>
-    </div>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - RescueBus</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0066cc;
+            --primary-dark: #0052a3;
+            --emergency: #e63946;
+            --emergency-dark: #c53030;
+            --dark: #2d3748;
+            --medium: #4a5568;
+            --light: #f7fafc;
+            --white: #ffffff;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.12);
+            --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+        }
 
-@section Scripts {
-    <script>
-        document.getElementById('sosButton').addEventListener('click', function() {
-            window.location.href = '@Url.Action("CreateSOSBooking", "Booking")';
-        });
-    </script>
-}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: var(--light);
+        }
+
+        .container {
+            margin: 0 auto;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: linear-gradient(135deg, var(--dark) 0%, #1a202c 100%);
+            color: var(--white);
+            padding: 1rem 0;
+            box-shadow: var(--shadow-md);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--white);
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .nav-logo:hover {
+            color: var(--primary);
+        }
+
+        .nav-logo i {
+            font-size: 1.8rem;
+            color: var(--primary);
+            transition: transform 0.3s ease;
+        }
+
+        .nav-logo:hover i {
+            transform: rotate(-10deg);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--white);
+            font-weight: 500;
+            padding: 0.75rem 0;
+            position: relative;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-link i {
+            font-size: 1.1rem;
+            transition: transform 0.2s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+        }
+
+        .nav-link:hover i {
+            transform: translateY(-2px);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 3px;
+            background-color: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            background-color: var(--emergency);
+            color: white !important;
+            padding: 0.6rem 1.5rem;
+            border-radius: var(--radius-md);
+            margin-left: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .nav-cta:hover {
+            background-color: var(--emergency-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(230, 57, 70, 0.2);
+        }
+
+        /* Hero Section */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 80vh;
+            text-align: center;
+            padding: 4rem 2rem;
+            background: linear-gradient(rgba(247, 250, 252, 0.9), rgba(247, 250, 252, 0.9)),
+                        url('https://images.unsplash.com/photo-1581056771107-24ca5f033842?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80') no-repeat center center;
+            background-size: cover;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+            line-height: 1.2;
+            max-width: 800px;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--medium);
+            margin-bottom: 3rem;
+            max-width: 600px;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 2rem;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            border: none;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: var(--white);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-emergency {
+            background-color: var(--emergency);
+            color: var(--white);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .btn-emergency:hover {
+            background-color: var(--emergency-dark);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* Responsive Adjustments */
+            .action-buttons {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="/" class="nav-logo">
+            </a>
+        </div>
+    </header>
+
+    <main class="hero">
+        <h1>Emergency Medical Transport When You Need It Most</h1>
+        <p>24/7 emergency response and medical transportation services with professional care teams</p>
+
+        <div class="action-buttons">
+            <a href="@Url.Action("SelectService", "Booking")" class="btn btn-primary">
+                <i class="fas fa-ambulance"></i> Book Ambulance
+            </a>
+            <button id="sosButton" class="btn btn-emergency">
+                <i class="fas fa-bolt"></i> S.O.S Emergency
+            </button>
+        </div>
+    </main>
+
+    @section Scripts {
+        <script>
+            document.getElementById('sosButton').addEventListener('click', function() {
+                window.location.href = '@Url.Action("CreateSOSBooking", "Booking")';
+            });
+        </script>
+    }
+</body>
+</html>

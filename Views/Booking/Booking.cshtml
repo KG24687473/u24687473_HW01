@@ -1,105 +1,319 @@
-﻿@{
-    var serviceType = ViewBag.ServiceType as string;
-    ViewData["Title"] = serviceType + " Booking";
+﻿@model u24687473_HW01.Models.Booking
+@{
+    ViewBag.Title = Model.ServiceType + " Booking";
 }
 
-<div class="booking-form-container">
-    <div class="booking-form-header">
-        <h2>
-            <i class="fas fa-ambulance"></i>
-            @serviceType Booking
-            <span class="service-badge">NON-EMERGENCY</span>
-        </h2>
-    </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewBag.Title - RescueBus</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0066cc;
+            --primary-dark: #0052a3;
+            --emergency: #e63946;
+            --emergency-dark: #c53030;
+            --dark: #2d3748;
+            --medium: #4a5568;
+            --light: #f7fafc;
+            --white: #ffffff;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.12);
+            --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+        }
 
-    <div class="booking-form-content">
-        <form id="bookingForm">
-            <input type="hidden" id="serviceType" value="@serviceType" />
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-            <div class="form-grid">
-                <div class="form-group">
-                    <label for="patientName" class="form-label required">Patient Full Name</label>
-                    <input type="text" id="patientName" class="form-control" required>
-                </div>
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: var(--light);
+        }
 
-                <div class="form-group">
-                    <label for="contactNumber" class="form-label required">Contact Number</label>
-                    <input type="tel" id="contactNumber" class="form-control" required>
-                </div>
+        .container {
+            margin: 0 auto;
+        }
 
-                <div class="form-group full-width">
-                    <label for="location" class="form-label required">Pickup Location</label>
-                    <input type="text" id="location" class="form-control" required>
-                </div>
+        /* Navigation - Same as previous pages */
+        .navbar {
+            background: linear-gradient(135deg, var(--dark) 0%, #1a202c 100%);
+            color: var(--white);
+            padding: 1rem 0;
+            box-shadow: var(--shadow-md);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
 
-                <div class="form-group full-width">
-                    <label for="medicalCondition" class="form-label required">Medical Condition</label>
-                    <textarea id="medicalCondition" class="form-control" required></textarea>
-                </div>
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
 
-                <div class="form-group">
-                    <label for="vehicleSelect" class="form-label required">Ambulance Type</label>
-                    <select id="vehicleSelect" class="form-control" required>
-                        <option value="">Select vehicle...</option>
-                        <!-- Options populated by JavaScript -->
-                    </select>
-                </div>
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--white);
+            text-decoration: none;
+        }
 
-                <div class="form-group">
-                    <label for="driverSelect" class="form-label required">Medical Team</label>
-                    <select id="driverSelect" class="form-control" required>
-                        <option value="">Select paramedic...</option>
-                        <!-- Options populated by JavaScript -->
-                    </select>
-                </div>
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
 
-                <div class="form-actions">
-                    <a href="@Url.Action("SelectService", "Booking")" class="btn-submit" style="background: #64748b;">
-                        <i class="fas fa-arrow-left"></i> Back
-                    </a>
-                    <button type="submit" class="btn-submit">
-                        Confirm Booking <i class="fas fa-paper-plane"></i>
-                    </button>
+        .nav-link {
+            color: var(--white);
+            font-weight: 500;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-cta {
+            background-color: var(--emergency);
+            color: white !important;
+            padding: 0.6rem 1.5rem;
+            border-radius: var(--radius-md);
+            transition: all 0.3s ease;
+        }
+
+        /* Booking Form Styles */
+        .booking-header {
+            text-align: center;
+            margin: 3rem 0 2rem;
+        }
+
+        .booking-header h1 {
+            font-size: 2.25rem;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+        }
+
+        .booking-header .subtitle {
+            color: var(--medium);
+            font-size: 1.1rem;
+        }
+
+        .booking-form {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: 2.5rem;
+            box-shadow: var(--shadow-sm);
+            margin: 2rem auto;
+            max-width: 800px;
+        }
+
+        .form-section {
+            margin-bottom: 2.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .form-section h2 {
+            font-size: 1.3rem;
+            color: var(--dark);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.75rem;
+            font-weight: 500;
+            color: var(--dark);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.9rem;
+            border: 1px solid #e2e8f0;
+            border-radius: var(--radius-md);
+            font-size: 1rem;
+            transition: all 0.2s;
+            background-color: #f8fafc;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(0,102,204,0.1);
+            background: white;
+        }
+
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.9rem 1.75rem;
+            border-radius: var(--radius-md);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-secondary {
+            background: var(--light);
+            color: var(--dark);
+            border: 1px solid #e2e8f0;
+        }
+
+        .btn-secondary:hover {
+            background: #e2e8f0;
+        }
+
+        .field-validation-error {
+            color: var(--emergency);
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+            display: block;
+        }
+
+        .input-validation-error {
+            border-color: var(--emergency) !important;
+        }
+
+        /* Responsive Adjustments */
+            .form-actions {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="/" class="nav-logo">
+            </a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="booking-header">
+            <h1>
+                <i class="fas fa-ambulance"></i>
+                @Model.ServiceType Booking
+            </h1>
+            <p class="subtitle">Complete the form to request medical transport</p>
+        </div>
+
+        @using (Html.BeginForm("CreateBooking", "Booking", FormMethod.Post, new { @class = "booking-form" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(m => m.Id)
+            @Html.HiddenFor(m => m.ServiceType)
+            @Html.HiddenFor(m => m.IsEmergency)
+
+            <div class="form-section">
+                <h2><i class="fas fa-user"></i> Patient Information</h2>
+                <div class="form-row">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.PatientName, "Full Name")
+                        @Html.TextBoxFor(m => m.PatientName, new { @class = "form-control", placeholder = "Patient's full name", required = "required" })
+                        @Html.ValidationMessageFor(m => m.PatientName)
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.ContactNumber, "Phone Number")
+                        @Html.TextBoxFor(m => m.ContactNumber, new { @class = "form-control", placeholder = "+27 123456789", required = "required" })
+                        @Html.ValidationMessageFor(m => m.ContactNumber)
+                    </div>
                 </div>
             </div>
-        </form>
+
+            <div class="form-section">
+                <h2><i class="fas fa-map-marker-alt"></i> Location Details</h2>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Location, "Pickup Address")
+                    @Html.TextBoxFor(m => m.Location, new { @class = "form-control", placeholder = "123 University Road", required = "required" })
+                    @Html.ValidationMessageFor(m => m.Location)
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h2><i class="fas fa-notes-medical"></i> Medical Information</h2>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.MedicalCondition, "Medical Condition")
+                    @Html.TextAreaFor(m => m.MedicalCondition, new { @class = "form-control", placeholder = "Describe injuries", required = "required", rows = 5 })
+                    @Html.ValidationMessageFor(m => m.MedicalCondition)
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <a href="@Url.Action("SelectService")" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Back
+                </a>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-paper-plane"></i> Submit Request
+                </button>
+            </div>
+        }
     </div>
-</div>
-
-@section Scripts {
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Populate vehicle and driver options
-            const vehicles = [
-                { id: 'als1', name: 'ALS Unit #1' },
-                { id: 'bls3', name: 'BLS Unit #3' }
-            ];
-
-            const drivers = [
-                { id: 'drv1', name: 'Dr. Sarah Miller' },
-                { id: 'drv2', name: 'Paramedic James Wilson' }
-            ];
-
-            const populateSelect = (selectId, items) => {
-                const select = document.getElementById(selectId);
-                items.forEach(item => {
-                    const option = document.createElement('option');
-                    option.value = item.id;
-                    option.textContent = item.name;
-                    select.appendChild(option);
-                });
-            };
-
-            populateSelect('vehicleSelect', vehicles);
-            populateSelect('driverSelect', drivers);
-
-            // Form submission
-            document.getElementById('bookingForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-                // Handle form submission
-                alert('Booking submitted!');
-                // window.location.href = '@Url.Action("BookingConfirmed", "Booking")';
-            });
-        });
-    </script>
-}
+</body>
+</html>

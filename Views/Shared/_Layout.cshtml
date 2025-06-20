@@ -4,37 +4,27 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - RescueBus</title>
-    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link href="~/css/site.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
 </head>
 <body>
-    <header>
-        <nav class="navbar">
-            <div class="logo">RescueBus</div>
-            <ul>
-                <li><a href="@Url.Action("Index", "Home")"><i class="fas fa-home"></i> Home</a></li>
-                <li><a href="@Url.Action("RideHistory", "Home")"><i class="fas fa-history"></i> Ride History</a></li>
-                <li><a href="@Url.Action("Manage", "Manage")"><i class="fas fa-cog"></i> Manage</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <div class="container">
-        <main>
-            @RenderBody()
-        </main>
-    </div>
-
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; @DateTime.Now.Year - RescueBus </p>
-            <div class="emergency-contact">
-                <i class="fas fa-phone-alt"></i> Emergency: 10111
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="/" class="nav-logo">
+                <i class="fas fa-ambulance"></i> RescueBus
+            </a>
+            <div class="nav-links">
+                <a href="/" class="nav-link">Home</a>
+                <a href="/Home/RideHistory" class="nav-link">Ride History</a>
+                <a href="/Manage/Manage" class="nav-link">Manage</a>
             </div>
         </div>
-    </footer>
+    </nav>
 
-    <script src="~/Scripts/app.js"></script>
+    <main class="container">
+        @RenderBody()
+    </main>
+
     @RenderSection("Scripts", required: false)
 </body>
 </html>
