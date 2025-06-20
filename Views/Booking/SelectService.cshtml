@@ -235,39 +235,39 @@
             justify-content: center;
         }
 
-        
+
         .service-header {
             text-align: center;
             margin: 4rem 0 3rem;
         }
 
-        .service-header h1 {
-            font-size: 2.5rem;
-            color: var(--dark);
-            margin-bottom: 1rem;
-            position: relative;
-            display: inline-block;
-        }
+            .service-header h1 {
+                font-size: 2.5rem;
+                color: var(--dark);
+                margin-bottom: 1rem;
+                position: relative;
+                display: inline-block;
+            }
 
-        .service-header h1::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 4px;
-            background: var(--primary);
-            border-radius: 2px;
-        }
+                .service-header h1::after {
+                    content: '';
+                    position: absolute;
+                    bottom: -10px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    width: 80px;
+                    height: 4px;
+                    background: var(--primary);
+                    border-radius: 2px;
+                }
 
-        .service-header p {
-            color: var(--medium);
-            font-size: 1.1rem;
-            max-width: 600px;
-            margin: 1rem auto 0;
-            line-height: 1.6;
-        }
+            .service-header p {
+                color: var(--medium);
+                font-size: 1.1rem;
+                max-width: 600px;
+                margin: 1rem auto 0;
+                line-height: 1.6;
+            }
 
         .services-grid {
             display: grid;
@@ -289,20 +289,20 @@
             overflow: hidden;
         }
 
-        .service-card:hover {
-            transform: translateY(-10px);
-            box-shadow: var(--shadow-lg);
-        }
+            .service-card:hover {
+                transform: translateY(-10px);
+                box-shadow: var(--shadow-lg);
+            }
 
-        .service-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 5px;
-            background: var(--primary);
-        }
+            .service-card::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 5px;
+                background: var(--primary);
+            }
 
         .service-icon {
             font-size: 2.5rem;
@@ -323,15 +323,15 @@
             padding-bottom: 0.5rem;
         }
 
-        .service-card h3::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 40px;
-            height: 2px;
-            background: rgba(0, 0, 0, 0.1);
-        }
+            .service-card h3::after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 40px;
+                height: 2px;
+                background: rgba(0, 0, 0, 0.1);
+            }
 
         .service-card p {
             color: var(--medium);
@@ -348,13 +348,13 @@
             border-top: 1px solid rgba(0, 0, 0, 0.05);
         }
 
-        .service-meta span {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--medium);
-            font-size: 0.9rem;
-        }
+            .service-meta span {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                color: var(--medium);
+                font-size: 0.9rem;
+            }
 
         .service-tag {
             background: rgba(0, 102, 204, 0.1);
@@ -384,10 +384,10 @@
             gap: 1.5rem;
         }
 
-        .emergency-content i {
-            font-size: 2.5rem;
-            color: var(--emergency);
-        }
+            .emergency-content i {
+                font-size: 2.5rem;
+                color: var(--emergency);
+            }
 
         .emergency-text h3 {
             font-size: 1.5rem;
@@ -401,15 +401,15 @@
         }
 
         /* Responsive Adjustments */
-            .emergency-callout {
-                flex-direction: column;
-                text-align: center;
-                gap: 1.5rem;
-            }
+        .emergency-callout {
+            flex-direction: column;
+            text-align: center;
+            gap: 1.5rem;
+        }
 
-            .emergency-content {
-                flex-direction: column;
-            }
+        .emergency-content {
+            flex-direction: column;
+        }
         }
     </style>
 </head>
@@ -417,6 +417,7 @@
     <header class="navbar">
         <div class="nav-container">
             <a href="/" class="nav-logo">
+                <!-- Logo content -->
             </a>
         </div>
     </header>
@@ -428,8 +429,8 @@
         </div>
 
         <div class="services-grid">
-            <!-- Advanced Life Support -->
-            <a href="@Url.Action("Booking", new { serviceType = "Advanced Life Support" })" class="service-card">
+            <!-- Service cards now match BookingController's expected service types -->
+            <a href="@Url.Action("Booking", "Booking", new { serviceType = "Advanced Life Support" })" class="service-card">
                 <div class="service-icon">
                     <i class="fas fa-heartbeat"></i>
                 </div>
@@ -441,8 +442,7 @@
                 </div>
             </a>
 
-            <!-- Basic Life Support -->
-            <a href="@Url.Action("Booking", new { serviceType = "Basic Life Support" })" class="service-card">
+            <a href="@Url.Action("Booking", "Booking", new { serviceType = "Basic Life Support" })" class="service-card">
                 <div class="service-icon">
                     <i class="fas fa-first-aid"></i>
                 </div>
@@ -454,8 +454,7 @@
                 </div>
             </a>
 
-            <!-- Patient Transport -->
-            <a href="@Url.Action("Booking", new { serviceType = "Patient Transport" })" class="service-card">
+            <a href="@Url.Action("Booking", "Booking", new { serviceType = "Patient Transport" })" class="service-card">
                 <div class="service-icon">
                     <i class="fas fa-procedures"></i>
                 </div>
@@ -467,57 +466,19 @@
                 </div>
             </a>
 
-            <!-- Medical Utility -->
-            <a href="@Url.Action("Booking", new { serviceType = "Medical Utility Vehicle" })" class="service-card">
-                <div class="service-icon">
-                    <i class="fas fa-truck-medical"></i>
+            <!-- Emergency callout now matches Emergency action -->
+            <div class="emergency-callout">
+                <div class="emergency-content">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <div class="emergency-text">
+                        <h3>Life-Threatening Emergency?</h3>
+                        <p>Immediate dispatch of nearest available unit with highest priority response team.</p>
+                    </div>
                 </div>
-                <h3>Medical Utility</h3>
-                <p>Specialized equipment and personnel transport for unique medical needs.</p>
-                <div class="service-meta">
-                    <span><i class="fas fa-clock"></i> 10-15 min response</span>
-                    <span class="service-tag">MUV</span>
-                </div>
-            </a>
-
-            <!-- Event Ambulance -->
-            <a href="@Url.Action("Booking", new { serviceType = "Event Medical Ambulance" })" class="service-card">
-                <div class="service-icon">
-                    <i class="fas fa-calendar-alt"></i>
-                </div>
-                <h3>Event Ambulance</h3>
-                <p>On-site medical support for concerts, sports events, and large gatherings.</p>
-                <div class="service-meta">
-                    <span><i class="fas fa-clock"></i> Scheduled</span>
-                    <span class="service-tag">EMA</span>
-                </div>
-            </a>
-
-            <!-- Air Ambulance -->
-            <a href="@Url.Action("Booking", new { serviceType = "Air Ambulance" })" class="service-card">
-                <div class="service-icon">
-                    <i class="fas fa-helicopter"></i>
-                </div>
-                <h3>Air Ambulance</h3>
-                <p>Rapid long-distance critical care transport with specialized medical team.</p>
-                <div class="service-meta">
-                    <span><i class="fas fa-clock"></i> 30-45 min response</span>
-                    <span class="service-tag">AIR</span>
-                </div>
-            </a>
-        </div>
-
-        <div class="emergency-callout">
-            <div class="emergency-content">
-                <i class="fas fa-exclamation-triangle"></i>
-                <div class="emergency-text">
-                    <h3>Life-Threatening Emergency?</h3>
-                    <p>Immediate dispatch of nearest available unit with highest priority response team.</p>
-                </div>
+                <a href="@Url.Action("Emergency", "Booking")" class="btn btn-emergency">
+                    <i class="fas fa-bolt"></i> S.O.S EMERGENCY
+                </a>
             </div>
-            <a href="@Url.Action("CreateSOSBooking")" class="btn btn-emergency">
-                <i class="fas fa-bolt"></i> S.O.S EMERGENCY
-            </a>
         </div>
     </div>
 </body>

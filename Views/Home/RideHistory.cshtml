@@ -1,6 +1,217 @@
-﻿
+﻿@model List<u24687473_HW01.Models.Booking>
 @{
-    ViewBag.Title = "RideHistory";
+    ViewBag.Title = "Ride History";
 }
 
-<h2>Ride History</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewBag.Title - RescueBus</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Your existing CSS variables and base styles remain the same */
+
+        .history-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .history-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+
+            .history-header i {
+                font-size: 2rem;
+                color: var(--primary);
+                margin-right: 1rem;
+            }
+
+            .history-header h1 {
+                font-size: 2rem;
+                color: var(--dark);
+            }
+
+        .history-list {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .history-card {
+            background: var(--white);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+            overflow: hidden;
+            text-decoration: none;
+            color: var(--dark);
+            border-left: 4px solid var(--primary);
+        }
+
+            .history-card:hover {
+                transform: translateY(-3px);
+                box-shadow: var(--shadow-md);
+            }
+
+            .history-card.sos-card {
+                border-left-color: var(--emergency);
+            }
+
+        .history-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.25rem 1.5rem;
+            background: rgba(0,0,0,0.02);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+            .history-card-header h3 {
+                font-size: 1.25rem;
+                font-weight: 600;
+                color: var(--dark);
+            }
+
+        .history-badge {
+            padding: 0.35rem 0.75rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.85rem;
+            font-weight: 600;
+            background-color: var(--primary);
+            color: var(--white);
+        }
+
+        .sos-card .history-badge {
+            background-color: var(--emergency);
+        }
+
+        .history-card-details {
+            padding: 1.5rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+            .history-card-details p {
+                margin: 0;
+            }
+
+            .history-card-details strong {
+                display: block;
+                font-size: 0.85rem;
+                color: var(--medium);
+                margin-bottom: 0.25rem;
+            }
+
+        .no-history {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: var(--white);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+        }
+
+            .no-history i {
+                font-size: 3rem;
+                color: var(--primary);
+                margin-bottom: 1.5rem;
+            }
+
+            .no-history h3 {
+                font-size: 1.5rem;
+                margin-bottom: 0.5rem;
+                color: var(--dark);
+            }
+
+            .no-history p {
+                color: var(--medium);
+                margin-bottom: 1.5rem;
+            }
+
+        .btn-confirmation {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background-color: var(--primary);
+            color: var(--white);
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+            .btn-confirmation:hover {
+                background-color: var(--primary-dark);
+                transform: translateY(-2px);
+                box-shadow: var(--shadow-sm);
+            }
+    </style>
+</head>
+<body>
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="/" class="nav-logo">
+                <!-- Logo content -->
+            </a>
+        </div>
+    </header>
+
+    <div class="history-container">
+        <div class="history-header">
+            <i class="fas fa-history"></i>
+            <h1>Ride History</h1>
+        </div>
+
+        @if (Model != null && Model.Any())
+        {
+            <div class="history-list">
+                @foreach (var booking in Model.OrderByDescending(b => b.BookingDate))
+                {
+                    <a href="@Url.Action("BookingConfirmed", "Booking", new { id = booking.Id })" class="history-card @(booking.IsEmergency ? "sos-card" : "")">
+                        <div class="history-card-header">
+                            <h3>@booking.ServiceType</h3>
+                            <span class="history-badge">
+                                @(booking.IsEmergency ? "EMERGENCY" : booking.BookingDate.ToString("d"))
+                            </span>
+                        </div>
+                        <div class="history-card-details">
+                            <div>
+                                <strong>Patient</strong>
+                                @booking.PatientName
+                            </div>
+                            <div>
+                                <strong>Location</strong>
+                                @booking.Location
+                            </div>
+                            <div>
+                                <strong>Status</strong>
+                                <span style="color: @(booking.IsEmergency ? "var(--emergency)" : "var(--primary)")">
+                                    @(booking.IsEmergency ? "Priority Response" : "Scheduled")
+                                </span>
+                            </div>
+                        </div>
+                    </a>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="no-history">
+                <i class="fas fa-ambulance"></i>
+                <h3>No Ride History Found</h3>
+                <p>Your booked rides will appear here</p>
+                <a href="@Url.Action("SelectService", "Booking")" class="btn-confirmation">
+                    <i class="fas fa-ambulance"></i> Book a Ride
+                </a>
+            </div>
+        }
+    </div>
+</body>
+</html>
