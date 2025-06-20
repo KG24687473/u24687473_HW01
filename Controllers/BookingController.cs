@@ -1,11 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using u24687473_HW01.Models;
+using System.Linq;
 
 namespace u24687473_HW01.Controllers
 {
     public class BookingController : Controller
     {
+        private static List<Booking> _bookings = new List<Booking>();
+
         public ActionResult SelectService()
         {
             return View();
@@ -25,44 +29,47 @@ namespace u24687473_HW01.Controllers
             {
                 model.Id = string.IsNullOrEmpty(model.Id) ? Guid.NewGuid().ToString() : model.Id;
                 model.BookingDate = DateTime.Now;
-                model.DriverId = AssignDriver(model);
-                model.VehicleId = AssignVehicle(model);
-
-                // Changed to return BookingConfirmed view
+                _bookings.Add(model);
                 return RedirectToAction("BookingConfirmed", new { id = model.Id });
             }
-
             ViewBag.ServiceType = model.ServiceType;
             return View("Booking", model);
         }
 
-        // Changed action name to match your view
+        [HttpGet]
+        public ActionResult CreateSOSBooking()
+        {
+            return View(new Booking
+            {
+                Id = Guid.NewGuid().ToString(),
+                IsEmergency = true,
+                ServiceType = "Emergency Response"
+            });
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Emergency(Booking model)
+        {
+            if (ModelState.IsValid)
+            {
+                model.Id = string.IsNullOrEmpty(model.Id) ? Guid.NewGuid().ToString() : model.Id;
+                model.BookingDate = DateTime.Now;
+                model.DriverId = "EMER-" + DateTime.Now.Minute.ToString("D2");
+                model.VehicleId = "EMER-" + DateTime.Now.Second.ToString("D2");
+                _bookings.Add(model);
+                return RedirectToAction("BookingConfirmed", new { id = model.Id });
+            }
+            return View("CreateSOSBooking", model);
+        }
+
         public ActionResult BookingConfirmed(string id)
         {
-            var booking = GetBookingById(id) ?? new Booking
+            var booking = _bookings.FirstOrDefault(b => b.Id == id) ?? new Booking
             {
                 Id = id,
                 BookingDate = DateTime.Now,
-                ServiceType = "Basic Life Support",
-                PatientName = "Test Patient",
-                ContactNumber = "(123) 456-7890",
-                Location = "123 Main Street",
-                MedicalCondition = "Non-emergency transport",
-                DriverId = "DRV-" + Guid.NewGuid().ToString().Substring(0, 5),
-                VehicleId = "VH-" + Guid.NewGuid().ToString().Substring(0, 5)
-            };
-
-            return View(booking);
-        }
-
-        public ActionResult Emergency()
-        {
-            var booking = new Booking
-            {
-                Id = Guid.NewGuid().ToString(),
-                BookingDate = DateTime.Now,
-                IsEmergency = true,
-                ServiceType = "Advanced Life Support",
+                ServiceType = "Emergency Response",
                 PatientName = "EMERGENCY PATIENT",
                 ContactNumber = "911",
                 Location = "GPS COORDINATES PENDING",
@@ -70,29 +77,12 @@ namespace u24687473_HW01.Controllers
                 DriverId = "DRV-EMER-01",
                 VehicleId = "VH-EMER-01"
             };
-
-            // Changed to return BookingConfirmed view
-            return RedirectToAction("BookingConfirmed", new { id = booking.Id });
+            return View(booking);
         }
 
-        private string AssignDriver(Booking booking)
+        public static List<Booking> GetBookings()
         {
-            return booking.IsEmergency
-                ? "DRV-EMER-" + DateTime.Now.Minute.ToString("D2")
-                : "DRV-" + Guid.NewGuid().ToString().Substring(0, 5);
-        }
-
-        private string AssignVehicle(Booking booking)
-        {
-            return booking.IsEmergency
-                ? "VH-EMER-" + DateTime.Now.Minute.ToString("D2")
-                : "VH-" + Guid.NewGuid().ToString().Substring(0, 5);
-        }
-
-        private Booking GetBookingById(string id)
-        {
-            // In real app, implement database lookup
-            return null;
+            return _bookings;
         }
     }
 }

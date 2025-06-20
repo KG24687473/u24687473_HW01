@@ -11,12 +11,57 @@
     <title>@ViewBag.Title - RescueBus</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Your existing CSS variables and base styles remain the same */
+        /* Shared CSS variables and base styles from Index */
+        :root {
+            --primary: #0066cc;
+            --primary-dark: #0052a3;
+            --emergency: #e63946;
+            --emergency-dark: #c53030;
+            --dark: #2d3748;
+            --medium: #4a5568;
+            --light: #f7fafc;
+            --white: #ffffff;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.12);
+            --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+        }
 
-        .history-container {
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: var(--light);
+        }
+
+        .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 2rem;
+            padding: 0 2rem;
+        }
+
+        /* Navigation - Same as Index */
+        .navbar {
+            background: linear-gradient(135deg, var(--dark) 0%, #1a202c 100%);
+            color: var(--white);
+            padding: 1rem 0;
+            box-shadow: var(--shadow-md);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        /* History Specific Styles */
+        .history-container {
+            padding: 2rem 0;
         }
 
         .history-header {
@@ -27,16 +72,16 @@
             border-bottom: 1px solid rgba(0,0,0,0.1);
         }
 
-            .history-header i {
-                font-size: 2rem;
-                color: var(--primary);
-                margin-right: 1rem;
-            }
+        .history-header i {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-right: 1rem;
+        }
 
-            .history-header h1 {
-                font-size: 2rem;
-                color: var(--dark);
-            }
+        .history-header h1 {
+            font-size: 2rem;
+            color: var(--dark);
+        }
 
         .history-list {
             display: grid;
@@ -54,14 +99,14 @@
             border-left: 4px solid var(--primary);
         }
 
-            .history-card:hover {
-                transform: translateY(-3px);
-                box-shadow: var(--shadow-md);
-            }
+        .history-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+        }
 
-            .history-card.sos-card {
-                border-left-color: var(--emergency);
-            }
+        .history-card.sos-card {
+            border-left-color: var(--emergency);
+        }
 
         .history-card-header {
             display: flex;
@@ -72,11 +117,11 @@
             border-bottom: 1px solid rgba(0,0,0,0.05);
         }
 
-            .history-card-header h3 {
-                font-size: 1.25rem;
-                font-weight: 600;
-                color: var(--dark);
-            }
+        .history-card-header h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
 
         .history-badge {
             padding: 0.35rem 0.75rem;
@@ -98,16 +143,12 @@
             gap: 1rem;
         }
 
-            .history-card-details p {
-                margin: 0;
-            }
-
-            .history-card-details strong {
-                display: block;
-                font-size: 0.85rem;
-                color: var(--medium);
-                margin-bottom: 0.25rem;
-            }
+        .history-card-details strong {
+            display: block;
+            font-size: 0.85rem;
+            color: var(--medium);
+            margin-bottom: 0.25rem;
+        }
 
         .no-history {
             text-align: center;
@@ -117,22 +158,22 @@
             box-shadow: var(--shadow-sm);
         }
 
-            .no-history i {
-                font-size: 3rem;
-                color: var(--primary);
-                margin-bottom: 1.5rem;
-            }
+        .no-history i {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
 
-            .no-history h3 {
-                font-size: 1.5rem;
-                margin-bottom: 0.5rem;
-                color: var(--dark);
-            }
+        .no-history h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
 
-            .no-history p {
-                color: var(--medium);
-                margin-bottom: 1.5rem;
-            }
+        .no-history p {
+            color: var(--medium);
+            margin-bottom: 1.5rem;
+        }
 
         .btn-confirmation {
             display: inline-flex;
@@ -147,18 +188,25 @@
             transition: all 0.3s ease;
         }
 
-            .btn-confirmation:hover {
-                background-color: var(--primary-dark);
-                transform: translateY(-2px);
-                box-shadow: var(--shadow-sm);
+        .btn-confirmation:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* Responsive Adjustments */
+            .history-card-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
             }
+        }
     </style>
 </head>
 <body>
     <header class="navbar">
         <div class="nav-container">
             <a href="/" class="nav-logo">
-                <!-- Logo content -->
             </a>
         </div>
     </header>
@@ -187,8 +235,8 @@
                                 @booking.PatientName
                             </div>
                             <div>
-                                <strong>Location</strong>
-                                @booking.Location
+                                <strong>Pickup Time</strong>
+                                @(DateTime.Parse(booking.PickupTime).ToString("g"))
                             </div>
                             <div>
                                 <strong>Status</strong>
@@ -213,5 +261,25 @@
             </div>
         }
     </div>
+
+    <script>
+        // Highlight current page in navigation
+        document.querySelectorAll('.nav-link').forEach(link => {
+            if (link.classList.contains('active')) {
+                link.style.color = 'var(--primary)';
+                link.querySelector('i').style.color = 'var(--primary)';
+            }
+        });
+
+        // Add click animation to history cards
+        document.querySelectorAll('.history-card').forEach(card => {
+            card.addEventListener('click', function() {
+                this.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 200);
+            });
+        });
+    </script>
 </body>
 </html>

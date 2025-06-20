@@ -8,6 +8,9 @@ namespace u24687473_HW01.Controllers
 {
     public class ManageController : Controller
     {
-        public ActionResult Index() => View();
+        public ActionResult Index()
+        {
+            return View();
+        }
     }
 }

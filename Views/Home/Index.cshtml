@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "Home";
+    ViewBag.Title = "Home";
 }
 
 <!DOCTYPE html>
@@ -7,7 +7,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - RescueBus</title>
+    <title>@ViewBag.Title - RescueBus</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -31,17 +31,19 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
         }
 
         body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
             line-height: 1.6;
             color: var(--dark);
             background-color: var(--light);
         }
 
         .container {
+            max-width: 1200px;
             margin: 0 auto;
+            padding: 0 2rem;
         }
 
         /* Navigation */
@@ -72,7 +74,6 @@
             font-weight: 600;
             color: var(--white);
             text-decoration: none;
-            transition: all 0.2s ease;
         }
 
         .nav-logo:hover {
@@ -98,42 +99,15 @@
         .nav-link {
             color: var(--white);
             font-weight: 500;
-            padding: 0.75rem 0;
-            position: relative;
             text-decoration: none;
-            transition: all 0.2s ease;
             display: flex;
             align-items: center;
             gap: 0.5rem;
-        }
-
-        .nav-link i {
-            font-size: 1.1rem;
-            transition: transform 0.2s ease;
+            transition: all 0.2s ease;
         }
 
         .nav-link:hover {
             color: var(--primary);
-        }
-
-        .nav-link:hover i {
-            transform: translateY(-2px);
-        }
-
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 0;
-            height: 3px;
-            background-color: var(--primary);
-            transition: width 0.3s ease;
-        }
-
-        .nav-link:hover::after {
-            width: 100%;
         }
 
         .nav-cta {
@@ -141,15 +115,12 @@
             color: white !important;
             padding: 0.6rem 1.5rem;
             border-radius: var(--radius-md);
-            margin-left: 1rem;
             transition: all 0.3s ease;
-            box-shadow: var(--shadow-sm);
         }
 
         .nav-cta:hover {
             background-color: var(--emergency-dark);
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(230, 57, 70, 0.2);
         }
 
         /* Hero Section */
@@ -167,15 +138,14 @@
         }
 
         .hero h1 {
-            font-size: 3.5rem;
+            font-size: 2.5rem;
             margin-bottom: 1.5rem;
             color: var(--dark);
             line-height: 1.2;
-            max-width: 800px;
         }
 
         .hero p {
-            font-size: 1.25rem;
+            font-size: 1.1rem;
             color: var(--medium);
             margin-bottom: 3rem;
             max-width: 600px;
@@ -225,7 +195,73 @@
             box-shadow: var(--shadow-md);
         }
 
+        /* Features Section */
+        .features {
+            padding: 4rem 0;
+            background-color: var(--white);
+        }
+
+        .features-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .features-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .features-header h2 {
+            font-size: 2rem;
+            color: var(--dark);
+            margin-bottom: 1rem;
+        }
+
+        .features-header p {
+            color: var(--medium);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: var(--light);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        .feature-card p {
+            color: var(--medium);
+            line-height: 1.6;
+        }
+
         /* Responsive Adjustments */
+
             .action-buttons {
                 flex-direction: column;
                 width: 100%;
@@ -234,6 +270,14 @@
             .btn {
                 width: 100%;
                 justify-content: center;
+            }
+
+            .nav-links {
+                gap: 1rem;
+            }
+
+            .nav-cta {
+                margin-left: 0;
             }
         }
     </style>
@@ -254,18 +298,61 @@
             <a href="@Url.Action("SelectService", "Booking")" class="btn btn-primary">
                 <i class="fas fa-ambulance"></i> Book Ambulance
             </a>
-            <button id="sosButton" class="btn btn-emergency">
+            <a href="@Url.Action("CreateSOSBooking", "Booking")" class="btn btn-emergency">
                 <i class="fas fa-bolt"></i> S.O.S Emergency
-            </button>
+            </a>
         </div>
     </main>
 
-    @section Scripts {
-        <script>
-            document.getElementById('sosButton').addEventListener('click', function() {
-                window.location.href = '@Url.Action("CreateSOSBooking", "Booking")';
+    <section class="features">
+        <div class="features-container">
+            <div class="features-header">
+                <h2>Our Services</h2>
+                <p>Comprehensive medical transport solutions for all situations</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-heartbeat"></i>
+                    </div>
+                    <h3>Advanced Life Support</h3>
+                    <p>Critical care transport with specialized medical equipment and trained paramedics.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-first-aid"></i>
+                    </div>
+                    <h3>Basic Life Support</h3>
+                    <p>Non-emergency transport with basic medical monitoring and care.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-procedures"></i>
+                    </div>
+                    <h3>Patient Transport</h3>
+                    <p>Comfortable transport for medical appointments and facility transfers.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
             });
-        </script>
-    }
+        });
+
+        // Emergency button confirmation
+        document.querySelector('.btn-emergency').addEventListener('click', function (e) {
+            if (!confirm('Are you sure this is a life-threatening emergency?')) {
+                e.preventDefault();
+            }
+        });
+    </script>
 </body>
 </html>

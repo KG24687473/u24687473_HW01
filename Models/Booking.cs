@@ -9,6 +9,7 @@ namespace u24687473_HW01.Models
     {
         public string Id { get; set; } = Guid.NewGuid().ToString();
         public DateTime BookingDate { get; set; } = DateTime.Now;
+        public string PickupTime { get; set; }
         public bool IsEmergency { get; set; }
         public string ServiceType { get; set; }
         public string PatientName { get; set; }

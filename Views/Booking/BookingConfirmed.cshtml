@@ -1,6 +1,21 @@
 ﻿@model u24687473_HW01.Models.Booking
 @{
     ViewBag.Title = Model.IsEmergency ? "Emergency Dispatch Confirmed" : "Booking Confirmed";
+
+    var driver = new
+    {
+        Name = Model.DriverId.Contains("EMER") ? "Emergency Response Team" : "John Smith",
+        License = Model.DriverId.Contains("EMER") ? "EMER-" + DateTime.Now.Minute.ToString("D2") : "DL-123456",
+        Phone = Model.DriverId.Contains("EMER") ? "911 Dispatch" : "+1 555-123-4567",
+        Certification = Model.ServiceType.Contains("Advanced") ? "ALS Certified" : "BLS Certified"
+    };
+
+    var vehicle = new
+    {
+        Type = Model.VehicleId.Contains("EMER") ? "Emergency Response Unit" : "Mercedes Sprinter",
+        LicensePlate = Model.VehicleId,
+        Features = Model.ServiceType.Contains("Advanced") ? "ICU, Stretcher" : "Basic Life Support"
+    };
 }
 
 <!DOCTYPE html>
@@ -11,6 +26,7 @@
     <title>@ViewBag.Title - RescueBus</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* Shared CSS variables and base styles from Index */
         :root {
             --primary: #0066cc;
             --primary-dark: #0052a3;
@@ -32,20 +48,22 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
         }
 
         body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
             line-height: 1.6;
             color: var(--dark);
             background-color: var(--light);
         }
 
         .container {
+            max-width: 1200px;
             margin: 0 auto;
+            padding: 0 2rem;
         }
 
-        /* Navigation */
+        /* Navigation - Same as Index */
         .navbar {
             background: linear-gradient(135deg, var(--dark) 0%, #1a202c 100%);
             color: var(--white);
@@ -56,186 +74,7 @@
             z-index: 1000;
         }
 
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        .nav-logo {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: var(--white);
-            text-decoration: none;
-            transition: all 0.2s ease;
-        }
-
-            .nav-logo:hover {
-                color: var(--primary);
-            }
-
-            .nav-logo i {
-                font-size: 1.8rem;
-                color: var(--primary);
-                transition: transform 0.3s ease;
-            }
-
-            .nav-logo:hover i {
-                transform: rotate(-10deg);
-            }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            align-items: center;
-        }
-
-        .nav-link {
-            color: var(--white);
-            font-weight: 500;
-            padding: 0.75rem 0;
-            position: relative;
-            text-decoration: none;
-            transition: all 0.2s ease;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-            .nav-link i {
-                font-size: 1.1rem;
-                transition: transform 0.2s ease;
-            }
-
-            .nav-link:hover {
-                color: var(--primary);
-            }
-
-                .nav-link:hover i {
-                    transform: translateY(-2px);
-                }
-
-            .nav-link::after {
-                content: '';
-                position: absolute;
-                bottom: 0;
-                left: 50%;
-                transform: translateX(-50%);
-                width: 0;
-                height: 3px;
-                background-color: var(--primary);
-                transition: width 0.3s ease;
-            }
-
-            .nav-link:hover::after {
-                width: 100%;
-            }
-
-        .nav-cta {
-            background-color: var(--emergency);
-            color: white !important;
-            padding: 0.6rem 1.5rem;
-            border-radius: var(--radius-md);
-            margin-left: 1rem;
-            transition: all 0.3s ease;
-            box-shadow: var(--shadow-sm);
-        }
-
-            .nav-cta:hover {
-                background-color: var(--emergency-dark);
-                transform: translateY(-2px);
-                box-shadow: 0 5px 15px rgba(230, 57, 70, 0.2);
-            }
-
-        /* Hero Section */
-        .hero {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            min-height: 80vh;
-            text-align: center;
-            padding: 4rem 2rem;
-            background: linear-gradient(rgba(247, 250, 252, 0.9), rgba(247, 250, 252, 0.9)), url('https://images.unsplash.com/photo-1581056771107-24ca5f033842?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80') no-repeat center center;
-            background-size: cover;
-        }
-
-            .hero h1 {
-                font-size: 3.5rem;
-                margin-bottom: 1.5rem;
-                color: var(--dark);
-                line-height: 1.2;
-                max-width: 800px;
-            }
-
-            .hero p {
-                font-size: 1.25rem;
-                color: var(--medium);
-                margin-bottom: 3rem;
-                max-width: 600px;
-            }
-
-        .action-buttons {
-            display: flex;
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 1rem 2rem;
-            border-radius: var(--radius-md);
-            font-weight: 600;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            border: none;
-        }
-
-        .btn-primary {
-            background-color: var(--primary);
-            color: var(--white);
-            box-shadow: var(--shadow-sm);
-        }
-
-            .btn-primary:hover {
-                background-color: var(--primary-dark);
-                transform: translateY(-3px);
-                box-shadow: var(--shadow-md);
-            }
-
-        .btn-emergency {
-            background-color: var(--emergency);
-            color: var(--white);
-            box-shadow: var(--shadow-sm);
-        }
-
-            .btn-emergency:hover {
-                background-color: var(--emergency-dark);
-                transform: translateY(-3px);
-                box-shadow: var(--shadow-md);
-            }
-
-        /* Responsive Adjustments */
-        .action-buttons {
-            flex-direction: column;
-            width: 100%;
-        }
-
-        .btn {
-            width: 100%;
-            justify-content: center;
-        }
-
+        /* Confirmation Specific Styles */
         .confirmation-header {
             text-align: center;
             margin: 3rem 0;
@@ -252,6 +91,11 @@
             margin: 0 auto 1.5rem;
             font-size: 3rem;
             color: var(--primary);
+        }
+
+        .bg-emergency {
+            background-color: var(--emergency);
+            color: white;
         }
 
         .confirmation-header h1 {
@@ -282,14 +126,14 @@
             border-bottom: 1px solid rgba(0,0,0,0.05);
         }
 
-            .confirmation-section h2 {
-                font-size: 1.3rem;
-                color: var(--dark);
-                margin-bottom: 1.5rem;
-                display: flex;
-                align-items: center;
-                gap: 0.75rem;
-            }
+        .confirmation-section h2 {
+            font-size: 1.3rem;
+            color: var(--dark);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
 
         .detail-grid {
             display: grid;
@@ -331,16 +175,50 @@
             margin-top: 2rem;
         }
 
-        /* Responsive Adjustments */
-        .confirmation-badge {
-            width: 80px;
-            height: 80px;
-            font-size: 2.5rem;
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.9rem 1.75rem;
+            border-radius: var(--radius-md);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            border: none;
         }
 
-        .confirmation-header h1 {
-            font-size: 1.8rem;
+        .btn-primary {
+            background: var(--primary);
+            color: white;
         }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-secondary {
+            background: var(--light);
+            color: var(--dark);
+            border: 1px solid #e2e8f0;
+            margin-top: 1rem;
+        }
+
+        .btn-secondary:hover {
+            background: #e2e8f0;
+        }
+
+        /* Responsive Adjustments */
+
+            .confirmation-header h1 {
+                font-size: 1.8rem;
+            }
+
+            .detail-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -348,14 +226,14 @@
     <header class="navbar">
         <div class="nav-container">
             <a href="/" class="nav-logo">
-                <!-- Logo content -->
+               
             </a>
-        </div>
+         </div>
     </header>
 
     <div class="container">
         <div class="confirmation-header">
-            <div class="confirmation-badge">
+            <div class="confirmation-badge @(Model.IsEmergency ? "bg-emergency" : "")">
                 <i class="fas @(Model.IsEmergency ? "fa-bolt" : "fa-check-circle")"></i>
             </div>
             <h1>@(Model.IsEmergency ? "EMERGENCY DISPATCH CONFIRMED" : "BOOKING CONFIRMED")</h1>
@@ -367,40 +245,30 @@
         </div>
 
         <div class="confirmation-card">
+            <!-- Booking Information -->
             <div class="confirmation-section">
-                <h2><i class="fas fa-info-circle"></i> Booking Details</h2>
+                <h2><i class="fas fa-info-circle"></i> Booking Information</h2>
                 <div class="detail-grid">
                     <div class="detail-item">
                         <span class="detail-label">Reference Number</span>
                         <span class="detail-value">@Model.Id</span>
                     </div>
                     <div class="detail-item">
-                        <span class="detail-label">Booking Date</span>
-                        <span class="detail-value">@Model.BookingDate.ToString("f")</span>
-                    </div>
-                    <div class="detail-item">
                         <span class="detail-label">Service Type</span>
                         <span class="detail-value">@Model.ServiceType</span>
                     </div>
                     <div class="detail-item">
-                        <span class="detail-label">Assigned Driver</span>
-                        <span class="detail-value">@Model.DriverId</span>
+                        <span class="detail-label">Booking Date</span>
+                        <span class="detail-value">@Model.BookingDate.ToString("f")</span>
                     </div>
                     <div class="detail-item">
-                        <span class="detail-label">Assigned Vehicle</span>
-                        <span class="detail-value">@Model.VehicleId</span>
+                        <span class="detail-label">Pickup Time</span>
+                        <span class="detail-value">@(DateTime.Parse(Model.PickupTime).ToString("f"))</span>
                     </div>
                 </div>
-
-                @if (Model.IsEmergency)
-                {
-                    <div class="emergency-alert">
-                        <i class="fas fa-exclamation-triangle"></i>
-                        <span>PRIORITY EMERGENCY RESPONSE ACTIVATED</span>
-                    </div>
-                }
             </div>
 
+            <!-- Patient Information -->
             <div class="confirmation-section">
                 <h2><i class="fas fa-user"></i> Patient Information</h2>
                 <div class="detail-grid">
@@ -416,26 +284,95 @@
                         <span class="detail-label">Medical Condition</span>
                         <span class="detail-value">@Model.MedicalCondition</span>
                     </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Pickup Location</span>
+                        <span class="detail-value">@Model.Location</span>
+                    </div>
                 </div>
             </div>
 
+            <!-- Driver Information -->
             <div class="confirmation-section">
-                <h2><i class="fas fa-map-marker-alt"></i> Location Details</h2>
-                <div class="detail-item">
-                    <span class="detail-label">Pickup Address</span>
-                    <span class="detail-value">@Model.Location</span>
+                <h2><i class="fas fa-id-card"></i> Driver Information</h2>
+                <div class="detail-grid">
+                    <div class="detail-item">
+                        <span class="detail-label">Driver Name</span>
+                        <span class="detail-value">@driver.Name</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">License Number</span>
+                        <span class="detail-value">@driver.License</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Certification</span>
+                        <span class="detail-value">@driver.Certification</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Contact</span>
+                        <span class="detail-value">@driver.Phone</span>
+                    </div>
                 </div>
             </div>
+
+            <!-- Vehicle Information -->
+            <div class="confirmation-section">
+                <h2><i class="fas fa-ambulance"></i> Vehicle Information</h2>
+                <div class="detail-grid">
+                    <div class="detail-item">
+                        <span class="detail-label">Vehicle Type</span>
+                        <span class="detail-value">@vehicle.Type</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">License Plate</span>
+                        <span class="detail-value">@vehicle.LicensePlate</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Features</span>
+                        <span class="detail-value">@vehicle.Features</span>
+                    </div>
+                </div>
+            </div>
+
+            @if (Model.IsEmergency)
+            {
+                <div class="emergency-alert">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <span>PRIORITY EMERGENCY RESPONSE ACTIVATED</span>
+                </div>
+            }
 
             <div class="confirmation-actions">
                 <a href="@Url.Action("Index", "Home")" class="btn btn-primary">
                     <i class="fas fa-home"></i> Return Home
                 </a>
-                <a href="@Url.Action("RideHistory", "Home")" class="btn btn-secondary" style="margin-top: 1rem;">
+                <a href="@Url.Action("RideHistory", "Home")" class="btn btn-secondary">
                     <i class="fas fa-history"></i> View Ride History
                 </a>
             </div>
         </div>
     </div>
+
+    <script>
+        // Print functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add print button dynamically
+            const actions = document.querySelector('.confirmation-actions');
+            const printBtn = document.createElement('button');
+            printBtn.className = 'btn btn-secondary';
+            printBtn.innerHTML = '<i class="fas fa-print"></i> Print Confirmation';
+            printBtn.style.marginTop = '1rem';
+            printBtn.addEventListener('click', function() {
+                window.print();
+            });
+            actions.appendChild(printBtn);
+
+            // Highlight emergency details
+            if (@Model.IsEmergency.ToString().ToLower())) {
+                document.querySelectorAll('.confirmation-section h2').forEach(header => {
+                    header.style.color = 'var(--emergency)';
+                });
+            }
+        });
+    </script>
 </body>
 </html>
