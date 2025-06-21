@@ -1,21 +1,6 @@
 ﻿@model u24687473_HW01.Models.Booking
 @{
     ViewBag.Title = Model.IsEmergency ? "Emergency Dispatch Confirmed" : "Booking Confirmed";
-
-    var driver = new
-    {
-        Name = Model.DriverId.Contains("EMER") ? "Emergency Response Team" : "John Smith",
-        License = Model.DriverId.Contains("EMER") ? "EMER-" + DateTime.Now.Minute.ToString("D2") : "DL-123456",
-        Phone = Model.DriverId.Contains("EMER") ? "911 Dispatch" : "+1 555-123-4567",
-        Certification = Model.ServiceType.Contains("Advanced") ? "ALS Certified" : "BLS Certified"
-    };
-
-    var vehicle = new
-    {
-        Type = Model.VehicleId.Contains("EMER") ? "Emergency Response Unit" : "Mercedes Sprinter",
-        LicensePlate = Model.VehicleId,
-        Features = Model.ServiceType.Contains("Advanced") ? "ICU, Stretcher" : "Basic Life Support"
-    };
 }
 
 <!DOCTYPE html>
@@ -126,14 +111,14 @@
             border-bottom: 1px solid rgba(0,0,0,0.05);
         }
 
-        .confirmation-section h2 {
-            font-size: 1.3rem;
-            color: var(--dark);
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
+            .confirmation-section h2 {
+                font-size: 1.3rem;
+                color: var(--dark);
+                margin-bottom: 1.5rem;
+                display: flex;
+                align-items: center;
+                gap: 0.75rem;
+            }
 
         .detail-grid {
             display: grid;
@@ -193,11 +178,11 @@
             color: white;
         }
 
-        .btn-primary:hover {
-            background: var(--primary-dark);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-md);
-        }
+            .btn-primary:hover {
+                background: var(--primary-dark);
+                transform: translateY(-2px);
+                box-shadow: var(--shadow-md);
+            }
 
         .btn-secondary {
             background: var(--light);
@@ -206,29 +191,27 @@
             margin-top: 1rem;
         }
 
-        .btn-secondary:hover {
-            background: #e2e8f0;
-        }
+            .btn-secondary:hover {
+                background: #e2e8f0;
+            }
 
         /* Responsive Adjustments */
 
-            .confirmation-header h1 {
-                font-size: 1.8rem;
-            }
+        .confirmation-header h1 {
+            font-size: 1.8rem;
+        }
 
-            .detail-grid {
-                grid-template-columns: 1fr;
-            }
+        .detail-grid {
+            grid-template-columns: 1fr;
+        }
         }
     </style>
 </head>
 <body>
     <header class="navbar">
         <div class="nav-container">
-            <a href="/" class="nav-logo">
-               
-            </a>
-         </div>
+            <a href="/" class="nav-logo"></a>
+        </div>
     </header>
 
     <div class="container">
@@ -247,23 +230,27 @@
         <div class="confirmation-card">
             <!-- Booking Information -->
             <div class="confirmation-section">
-                <h2><i class="fas fa-info-circle"></i> Booking Information</h2>
+                <h2><i class="fas fa-info-circle"></i> Booking Details</h2>
                 <div class="detail-grid">
-                    <div class="detail-item">
-                        <span class="detail-label">Reference Number</span>
-                        <span class="detail-value">@Model.Id</span>
-                    </div>
                     <div class="detail-item">
                         <span class="detail-label">Service Type</span>
                         <span class="detail-value">@Model.ServiceType</span>
                     </div>
                     <div class="detail-item">
-                        <span class="detail-label">Booking Date</span>
+                        <span class="detail-label">Booking ID</span>
+                        <span class="detail-value">@Model.Id</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Date Booked</span>
                         <span class="detail-value">@Model.BookingDate.ToString("f")</span>
                     </div>
                     <div class="detail-item">
                         <span class="detail-label">Pickup Time</span>
                         <span class="detail-value">@(DateTime.Parse(Model.PickupTime).ToString("f"))</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Pickup Address</span>
+                        <span class="detail-value">@Model.Location</span>
                     </div>
                 </div>
             </div>
@@ -284,10 +271,6 @@
                         <span class="detail-label">Medical Condition</span>
                         <span class="detail-value">@Model.MedicalCondition</span>
                     </div>
-                    <div class="detail-item">
-                        <span class="detail-label">Pickup Location</span>
-                        <span class="detail-value">@Model.Location</span>
-                    </div>
                 </div>
             </div>
 
@@ -297,19 +280,15 @@
                 <div class="detail-grid">
                     <div class="detail-item">
                         <span class="detail-label">Driver Name</span>
-                        <span class="detail-value">@driver.Name</span>
+                        <span class="detail-value">@Model.Driver?.Name</span>
                     </div>
                     <div class="detail-item">
-                        <span class="detail-label">License Number</span>
-                        <span class="detail-value">@driver.License</span>
+                        <span class="detail-label">Contact Number</span>
+                        <span class="detail-value">@Model.Driver?.Phone</span>
                     </div>
                     <div class="detail-item">
                         <span class="detail-label">Certification</span>
-                        <span class="detail-value">@driver.Certification</span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="detail-label">Contact</span>
-                        <span class="detail-value">@driver.Phone</span>
+                        <span class="detail-value">@Model.Driver?.Certification</span>
                     </div>
                 </div>
             </div>
@@ -320,15 +299,15 @@
                 <div class="detail-grid">
                     <div class="detail-item">
                         <span class="detail-label">Vehicle Type</span>
-                        <span class="detail-value">@vehicle.Type</span>
+                        <span class="detail-value">@Model.Vehicle?.Type</span>
                     </div>
                     <div class="detail-item">
-                        <span class="detail-label">License Plate</span>
-                        <span class="detail-value">@vehicle.LicensePlate</span>
+                        <span class="detail-label">Registration</span>
+                        <span class="detail-value">@Model.Vehicle?.Registration</span>
                     </div>
                     <div class="detail-item">
                         <span class="detail-label">Features</span>
-                        <span class="detail-value">@vehicle.Features</span>
+                        <span class="detail-value">@Model.Vehicle?.Features</span>
                     </div>
                 </div>
             </div>
@@ -351,28 +330,13 @@
             </div>
         </div>
     </div>
-
     <script>
-        // Print functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            // Add print button dynamically
-            const actions = document.querySelector('.confirmation-actions');
-            const printBtn = document.createElement('button');
-            printBtn.className = 'btn btn-secondary';
-            printBtn.innerHTML = '<i class="fas fa-print"></i> Print Confirmation';
-            printBtn.style.marginTop = '1rem';
-            printBtn.addEventListener('click', function() {
-                window.print();
-            });
-            actions.appendChild(printBtn);
-
-            // Highlight emergency details
-            if (@Model.IsEmergency.ToString().ToLower())) {
-                document.querySelectorAll('.confirmation-section h2').forEach(header => {
-                    header.style.color = 'var(--emergency)';
-                });
-            }
+    // Highlight emergency details
+    if (@Model.IsEmergency.ToString().ToLower()) {
+        document.querySelectorAll('.confirmation-section h2').forEach(header => {
+            header.style.color = 'var(--emergency)';
         });
+    }
     </script>
 </body>
 </html>

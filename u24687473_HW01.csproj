@@ -151,6 +151,12 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\AirAmbulance.jpg" />
+    <Content Include="Images\Ambulance.jpg" />
+    <Content Include="Images\Paramedic1.png" />
+    <Content Include="Images\Paramedic2.png" />
+    <Content Include="Images\Paramedic3.png" />
+    <Content Include="Images\Paramedic4.png" />
     <Content Include="Scripts\app.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -191,7 +197,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Images\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />

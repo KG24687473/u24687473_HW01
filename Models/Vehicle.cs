@@ -7,10 +7,10 @@ namespace u24687473_HW01.Models
 {
     public class Vehicle
     {
-        public string Id { get; set; } = Guid.NewGuid().ToString();
-        public string LicensePlate { get; set; }
-        public string ServiceType { get; set; }
-        public string ImagePath { get; set; }
-        public bool IsAvailable { get; set; } = true;
+        public string Id { get; set; }
+        public string Type { get; set; }
+        public string Registration { get; set; }
+        public string Features { get; set; }
+        public string ServiceType { get; set; } 
     }
 }
