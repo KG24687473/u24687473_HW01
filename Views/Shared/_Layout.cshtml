@@ -8,18 +8,19 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
 </head>
 <body>
-    <nav class="navbar">
-        <div class="container nav-container">
+    <header class="navbar">
+        <div class="nav-container">
             <a href="/" class="nav-logo">
-                <i class="fas fa-ambulance"></i> RescueBus
+                <img src="~/Images/navIcon.png" alt="RescueBus Logo" class="logo-img" />
+                <span>RescueBus</span>
             </a>
-            <div class="nav-links">
+            <nav class="nav-links">
                 <a href="/" class="nav-link">Home</a>
-                <a href="/Home/RideHistory" class="nav-link">Ride History</a>
-                <a href="/Manage/Manage" class="nav-link">Manage</a>
-            </div>
+                <a href="/Booking/RideHistory" class="nav-link">Ride History</a>
+                <a href="/Manage" class="nav-link">Manage</a>
+            </nav>
         </div>
-    </nav>
+    </header>
 
     <main class="container">
         @RenderBody()

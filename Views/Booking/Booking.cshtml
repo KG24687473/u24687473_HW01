@@ -43,16 +43,14 @@
         }
 
         .container {
-            max-width: 1200px;
             margin: 0 auto;
-            padding: 0 2rem;
         }
 
         /* Navigation */
         .navbar {
             background: linear-gradient(135deg, var(--dark) 0%, #1a202c 100%);
             color: var(--white);
-            padding: 1rem 0;
+            padding: 0;
             box-shadow: var(--shadow-md);
             position: sticky;
             top: 0;
@@ -67,30 +65,6 @@
             margin: 0 auto;
             padding: 0 2rem;
         }
-
-        .nav-logo {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: var(--white);
-            text-decoration: none;
-        }
-
-            .nav-logo:hover {
-                color: var(--primary);
-            }
-
-            .nav-logo i {
-                font-size: 1.8rem;
-                color: var(--primary);
-                transition: transform 0.3s ease;
-            }
-
-            .nav-logo:hover i {
-                transform: rotate(-10deg);
-            }
 
         .nav-links {
             display: flex;
@@ -278,18 +252,13 @@
 </head>
 <body>
     <header class="navbar">
-        <div class="nav-container">
-            <a href="/" class="nav-logo"></a>
-        </div>
     </header>
 
     <div class="container">
         <div class="booking-header">
             <h1>
-                <i class="fas fa-ambulance"></i>
                 @Model.ServiceType Booking
             </h1>
-            <p class="subtitle">Complete the form to request medical transport</p>
         </div>
 
         @using (Html.BeginForm("CreateBooking", "Booking", FormMethod.Post, new { @class = "booking-form" }))
@@ -317,12 +286,6 @@
                         @Html.TextBoxFor(m => m.Location, new { @class = "form-control", placeholder = "123 Main Street", required = "required" })
                         @Html.ValidationMessageFor(m => m.Location)
                     </div>
-                </div>
-            </div>
-
-            <div class="form-section">
-                <h2><i class="fas fa-user"></i> Patient Information</h2>
-                <div class="form-row">
                     <div class="form-group">
                         @Html.LabelFor(m => m.PatientName, "Full Name")
                         @Html.TextBoxFor(m => m.PatientName, new { @class = "form-control", placeholder = "Patient's full name", required = "required" })
@@ -330,25 +293,9 @@
                     </div>
                     <div class="form-group">
                         @Html.LabelFor(m => m.ContactNumber, "Phone Number")
-                        @Html.TextBoxFor(m => m.ContactNumber, new { @class = "form-control", placeholder = "+27 123456789", required = "required" })
+                        @Html.TextBoxFor(m => m.ContactNumber, new { @class = "form-control", placeholder = "083 123 4598", required = "required" })
                         @Html.ValidationMessageFor(m => m.ContactNumber)
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(m => m.MedicalCondition, "Medical Condition")
-                    @Html.TextAreaFor(m => m.MedicalCondition, new
-                    {
-                        @class = "form-control",
-                        placeholder = "Describe injuries or medical condition",
-                        rows = 3
-                    })
-                    @Html.ValidationMessageFor(m => m.MedicalCondition)
-                </div>
-            </div>
-
-            <div class="form-section">
-                <h2><i class="fas fa-users"></i> Assignment</h2>
-                <div class="form-row">
+                    </div>  
                     <div class="form-group">
                         @Html.LabelFor(m => m.DriverId, "Driver")
                         @Html.DropDownListFor(m => m.DriverId, (List<SelectListItem>)ViewBag.Drivers, "Select Driver", new { @class = "form-control", required = "required" })
@@ -359,6 +306,16 @@
                         @Html.DropDownListFor(m => m.VehicleId, (List<SelectListItem>)ViewBag.Vehicles, "Select Vehicle", new { @class = "form-control", required = "required" })
                         @Html.ValidationMessageFor(m => m.VehicleId)
                     </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.MedicalCondition, "Reason")
+                        @Html.TextAreaFor(m => m.MedicalCondition, new
+                        {
+                            @class = "form-control",
+                            placeholder = "Describe the reason for the need of an ambulance.",
+                            rows = 3
+                        })
+                        @Html.ValidationMessageFor(m => m.MedicalCondition)
+                    </div>
                 </div>
             </div>
 
@@ -367,7 +324,7 @@
                     <i class="fas fa-arrow-left"></i> Back
                 </a>
                 <button type="submit" class="btn btn-primary">
-                    <i class="fas fa-paper-plane"></i> Submit Request
+                    <i class="fas fa-paper-plane"></i> Book Ambulance
                 </button>
             </div>
         }

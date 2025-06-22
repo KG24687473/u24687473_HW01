@@ -153,6 +153,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Images\AirAmbulance.jpg" />
     <Content Include="Images\Ambulance.jpg" />
+    <Content Include="Images\navIcon.png" />
     <Content Include="Images\Paramedic1.png" />
     <Content Include="Images\Paramedic2.png" />
     <Content Include="Images\Paramedic3.png" />
@@ -192,7 +193,6 @@
     <Content Include="Views\Booking\Booking.cshtml" />
     <Content Include="Views\Home\RideHistory.cshtml" />
     <Content Include="Views\Manage\Manage.cshtml" />
-    <Content Include="Views\Shared\_Navigation.cshtml" />
     <Content Include="Views\Booking\CreateSOSBooking.cshtml" />
   </ItemGroup>
   <ItemGroup>

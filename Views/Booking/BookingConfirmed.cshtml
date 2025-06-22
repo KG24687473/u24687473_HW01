@@ -43,16 +43,14 @@
         }
 
         .container {
-            max-width: 1200px;
             margin: 0 auto;
-            padding: 0 2rem;
         }
 
         /* Navigation - Same as Index */
         .navbar {
             background: linear-gradient(135deg, var(--dark) 0%, #1a202c 100%);
             color: var(--white);
-            padding: 1rem 0;
+            padding: 0;
             box-shadow: var(--shadow-md);
             position: sticky;
             top: 0;
@@ -209,9 +207,6 @@
 </head>
 <body>
     <header class="navbar">
-        <div class="nav-container">
-            <a href="/" class="nav-logo"></a>
-        </div>
     </header>
 
     <div class="container">
@@ -255,59 +250,30 @@
                 </div>
             </div>
 
-            <!-- Patient Information -->
-            <div class="confirmation-section">
-                <h2><i class="fas fa-user"></i> Patient Information</h2>
-                <div class="detail-grid">
-                    <div class="detail-item">
-                        <span class="detail-label">Patient Name</span>
-                        <span class="detail-value">@Model.PatientName</span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="detail-label">Contact Number</span>
-                        <span class="detail-value">@Model.ContactNumber</span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="detail-label">Medical Condition</span>
-                        <span class="detail-value">@Model.MedicalCondition</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Driver Information -->
             <div class="confirmation-section">
                 <h2><i class="fas fa-id-card"></i> Driver Information</h2>
                 <div class="detail-grid">
                     <div class="detail-item">
                         <span class="detail-label">Driver Name</span>
-                        <span class="detail-value">@Model.Driver?.Name</span>
+                        <span class="detail-value">@(Model.Driver?.Name ?? "Not assigned")</span>
                     </div>
                     <div class="detail-item">
                         <span class="detail-label">Contact Number</span>
-                        <span class="detail-value">@Model.Driver?.Phone</span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="detail-label">Certification</span>
-                        <span class="detail-value">@Model.Driver?.Certification</span>
+                        <span class="detail-value">@(Model.Driver?.Phone ?? "N/A")</span>
                     </div>
                 </div>
             </div>
 
-            <!-- Vehicle Information -->
             <div class="confirmation-section">
                 <h2><i class="fas fa-ambulance"></i> Vehicle Information</h2>
                 <div class="detail-grid">
                     <div class="detail-item">
                         <span class="detail-label">Vehicle Type</span>
-                        <span class="detail-value">@Model.Vehicle?.Type</span>
+                        <span class="detail-value">@(Model.Vehicle?.Type ?? "Not assigned")</span>
                     </div>
                     <div class="detail-item">
                         <span class="detail-label">Registration</span>
-                        <span class="detail-value">@Model.Vehicle?.Registration</span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="detail-label">Features</span>
-                        <span class="detail-value">@Model.Vehicle?.Features</span>
+                        <span class="detail-value">@(Model.Vehicle?.Registration ?? "N/A")</span>
                     </div>
                 </div>
             </div>

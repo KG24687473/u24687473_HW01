@@ -44,11 +44,12 @@
             margin: 0 auto;
         }
 
-        /* Navigation */
         .navbar {
             background: linear-gradient(135deg, var(--dark) 0%, #1a202c 100%);
             color: var(--white);
-            padding: 1rem 0;
+            height: 80px;
+            display: flex;
+            align-items: center;
             box-shadow: var(--shadow-md);
             position: sticky;
             top: 0;
@@ -62,51 +63,39 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 2rem;
+            width: 100%;
         }
 
         .nav-logo {
             display: flex;
             align-items: center;
             gap: 0.75rem;
-            font-size: 1.5rem;
+            font-size: 1.75rem;
             font-weight: 600;
             color: var(--white);
             text-decoration: none;
         }
 
-        .nav-logo:hover {
-            color: var(--primary);
-        }
-
-        .nav-logo i {
-            font-size: 1.8rem;
-            color: var(--primary);
-            transition: transform 0.3s ease;
-        }
-
-        .nav-logo:hover i {
-            transform: rotate(-10deg);
+        .logo-img {
+            height: 40px;
+            width: auto;
+            display: block;
         }
 
         .nav-links {
             display: flex;
             gap: 2rem;
-            align-items: center;
         }
 
         .nav-link {
             color: var(--white);
             font-weight: 500;
             text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: all 0.2s ease;
         }
 
-        .nav-link:hover {
-            color: var(--primary);
-        }
+         .nav-link:hover {
+             color: var(--primary);
+           }
 
         .nav-cta {
             background-color: var(--emergency);
@@ -130,9 +119,6 @@
             min-height: 80vh;
             text-align: center;
             padding: 4rem 2rem;
-            background: linear-gradient(rgba(247, 250, 252, 0.9), rgba(247, 250, 252, 0.9)),
-                        url('https://images.unsplash.com/photo-1581056771107-24ca5f033842?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80') no-repeat center center;
-            background-size: cover;
         }
 
         .hero h1 {
@@ -281,13 +267,6 @@
     </style>
 </head>
 <body>
-    <header class="navbar">
-        <div class="nav-container">
-            <a href="/" class="nav-logo">
-            </a>
-        </div>
-    </header>
-
     <main class="hero">
         <h1>Emergency Medical Transport When You Need It Most</h1>
         <p>24/7 emergency response and medical transportation services with professional care teams</p>
