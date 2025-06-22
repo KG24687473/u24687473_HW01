@@ -144,7 +144,7 @@ namespace u24687473_HW01.Controllers
                 ServiceType = "Emergency Response",
                 IsEmergency = true,
                 PatientName = "EMERGENCY PATIENT",
-                ContactNumber = "911",
+                ContactNumber = "10111",
                 Location = "GPS COORDINATES PENDING",
                 MedicalCondition = "LIFE-THREATENING CONDITION",
                 Driver = new Driver { Name = "Emergency Response Team", Phone = "911 Dispatch" },

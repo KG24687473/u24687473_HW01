@@ -1,8 +1,8 @@
 ﻿@model u24687473_HW01.Models.Booking
-@{
+@{<!---->
     ViewBag.Title = Model.ServiceType + " Booking";
 }
-
+<!---->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -275,7 +275,7 @@
             @Html.HiddenFor(m => m.Id)
             @Html.HiddenFor(m => m.ServiceType)
             @Html.HiddenFor(m => m.IsEmergency)
-
+        <!---->
             <div class="form-section">
                 <h2><i class="fas fa-calendar-alt"></i> Booking Details</h2>
                 <div class="form-row">
@@ -324,6 +324,7 @@
                         })
                         @Html.ValidationMessageFor(m => m.MedicalCondition)
                     </div>
+                    <!---->
                 </div>
             </div>
 
@@ -331,9 +332,11 @@
                 <a href="@Url.Action("SelectService", "Booking")" class="btn btn-secondary">
                     <i class="fas fa-arrow-left"></i> Back
                 </a>
+                <!---->
                 <button type="submit" class="btn btn-primary">
                     <i class="fas fa-paper-plane"></i> Book Ambulance
                 </button>
+                <!---->
             </div>
         }
     </div>

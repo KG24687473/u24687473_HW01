@@ -268,11 +268,12 @@
     <main class="hero">
         <h1>RescueBus Emergency System</h1>
         <p>Please select a type of booking:</p>
-
+        <!---->
         <div class="action-buttons">
             <a href="@Url.Action("SelectService", "Booking")" class="btn btn-primary">Book Ambulance</a>
             <a href="@Url.Action("CreateSOSBooking", "Booking")" class="btn btn-emergency">S.O.S Emergency</a>
         </div>
+        <!---->
     </main>
 
     <script>
@@ -286,12 +287,13 @@
             });
         });
 
-      
+      //
         document.querySelector('.btn-emergency').addEventListener('click', function (e) {
-            if (!confirm('Are you sure this is a life-threatening emergency?')) {
+            if (!confirm('Are you sure you want to enable an SOS emergency?')) {
                 e.preventDefault();
             }
         });
+    //
     </script>
 </body>
 </html>

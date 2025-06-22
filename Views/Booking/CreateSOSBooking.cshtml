@@ -267,10 +267,7 @@
 <body>
     <div class="container">
         <div class="booking-header">
-            <h1>
-                <i class="fas fa-bolt"></i>
-                SOS Booking
-            </h1>
+            <h1>SOS Booking</h1>
             <p class="subtitle">Priority Booking</p>
         </div>
 
@@ -323,8 +320,6 @@
                             new SelectListItem { Text = "Cardiac Arrest", Value = "Cardiac Arrest" },
                             new SelectListItem { Text = "Traumatic Injury", Value = "Traumatic Injury" },
                             new SelectListItem { Text = "Stroke Symptoms", Value = "Stroke Symptoms" },
-                            new SelectListItem { Text = "Respiratory Distress", Value = "Respiratory Distress" },
-                            new SelectListItem { Text = "Severe Bleeding", Value = "Severe Bleeding" },
                             new SelectListItem { Text = "Other Life-Threatening", Value = "Other" }
                         }, "Select Emergency Type", new { @class = "form-control", required = "required" })
                         @Html.ValidationMessageFor(m => m.MedicalCondition)
