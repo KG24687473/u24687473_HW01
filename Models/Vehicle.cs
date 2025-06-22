@@ -11,6 +11,7 @@ namespace u24687473_HW01.Models
         public string Type { get; set; }
         public string Registration { get; set; }
         public string Features { get; set; }
-        public string ServiceType { get; set; } 
+        public string ServiceType { get; set; }
+        public string ImageUrl { get; set; }
     }
 }

@@ -17,7 +17,6 @@ namespace u24687473_HW01.Models
         public string ContactNumber { get; set; }
         public string MedicalCondition { get; set; }
 
-        // Navigation properties
         public string DriverId { get; set; }
         public Driver Driver { get; set; }
 

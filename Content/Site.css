@@ -1,5 +1,4 @@
-﻿/* ===== GLOBAL STYLES ===== */
-:root {
+﻿:root {
     --primary: #0066cc;
     --emergency: #e63946;
     --dark: #2d3748;
@@ -21,7 +20,6 @@ body {
     background-color: var(--light);
 }
 
-/* ===== ENHANCED NAVIGATION ===== */
 .navbar {
     background: var(--dark);
     color: var(--white);
@@ -129,7 +127,6 @@ body {
         box-shadow: 0 5px 15px rgba(0, 102, 204, 0.2);
     }
 
-/* ===== SERVICE SELECTION PAGE ===== */
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -265,7 +262,6 @@ body {
     font-weight: 600;
 }
 
-/* Emergency Callout */
 .emergency-callout {
     background: linear-gradient(135deg, #fff8f8 0%, #fff 100%);
     border-left: 5px solid var(--emergency);

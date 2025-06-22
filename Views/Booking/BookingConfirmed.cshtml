@@ -11,7 +11,6 @@
     <title>@ViewBag.Title - RescueBus</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Shared CSS variables and base styles from Index */
         :root {
             --primary: #0066cc;
             --primary-dark: #0052a3;
@@ -46,18 +45,72 @@
             margin: 0 auto;
         }
 
-        /* Navigation - Same as Index */
         .navbar {
             background: linear-gradient(135deg, var(--dark) 0%, #1a202c 100%);
             color: var(--white);
-            padding: 0;
+            height: 80px;
+            display: flex;
+            align-items: center;
             box-shadow: var(--shadow-md);
             position: sticky;
             top: 0;
             z-index: 1000;
         }
 
-        /* Confirmation Specific Styles */
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            width: 100%;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: var(--white);
+            text-decoration: none;
+        }
+
+        .logo-img {
+            height: 40px;
+            width: auto;
+            display: block;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: var(--white);
+            font-weight: 500;
+            text-decoration: none;
+        }
+
+            .nav-link:hover {
+                color: var(--primary);
+            }
+
+        .nav-cta {
+            background-color: var(--emergency);
+            color: white !important;
+            padding: 0.6rem 1.5rem;
+            border-radius: var(--radius-md);
+            transition: all 0.3s ease;
+        }
+
+            .nav-cta:hover {
+                background-color: var(--emergency-dark);
+                transform: translateY(-2px);
+            }
+
         .confirmation-header {
             text-align: center;
             margin: 3rem 0;
@@ -193,7 +246,6 @@
                 background: #e2e8f0;
             }
 
-        /* Responsive Adjustments */
 
         .confirmation-header h1 {
             font-size: 1.8rem;
@@ -206,15 +258,13 @@
     </style>
 </head>
 <body>
-    <header class="navbar">
-    </header>
 
     <div class="container">
         <div class="confirmation-header">
             <div class="confirmation-badge @(Model.IsEmergency ? "bg-emergency" : "")">
                 <i class="fas @(Model.IsEmergency ? "fa-bolt" : "fa-check-circle")"></i>
             </div>
-            <h1>@(Model.IsEmergency ? "EMERGENCY DISPATCH CONFIRMED" : "BOOKING CONFIRMED")</h1>
+            <h1>@(Model.IsEmergency ? "EMERGENCY BOOKING CONFIRMED" : "BOOKING CONFIRMED")</h1>
             <p class="subtitle">
                 @(Model.IsEmergency ?
                     "Priority response team has been dispatched to your location" :
@@ -223,7 +273,7 @@
         </div>
 
         <div class="confirmation-card">
-            <!-- Booking Information -->
+            
             <div class="confirmation-section">
                 <h2><i class="fas fa-info-circle"></i> Booking Details</h2>
                 <div class="detail-grid">
@@ -255,13 +305,19 @@
                 <div class="detail-grid">
                     <div class="detail-item">
                         <span class="detail-label">Driver Name</span>
-                        <span class="detail-value">@(Model.Driver?.Name ?? "Not assigned")</span>
+                        <span class="detail-value">@(Model.Driver?.Name ?? "N/A")</span>
                     </div>
                     <div class="detail-item">
                         <span class="detail-label">Contact Number</span>
                         <span class="detail-value">@(Model.Driver?.Phone ?? "N/A")</span>
                     </div>
                 </div>
+                @if (!string.IsNullOrEmpty(Model.Driver?.ImageUrl))
+                {
+                    <div style="margin-top: 1rem; text-align: center;">
+                        <img src="@Url.Content(Model.Driver.ImageUrl)" alt="Driver Image" style="max-width: 150px; border-radius: 12px;" />
+                    </div>
+                }
             </div>
 
             <div class="confirmation-section">
@@ -269,20 +325,27 @@
                 <div class="detail-grid">
                     <div class="detail-item">
                         <span class="detail-label">Vehicle Type</span>
-                        <span class="detail-value">@(Model.Vehicle?.Type ?? "Not assigned")</span>
+                        <span class="detail-value">@(Model.Vehicle?.Type ?? "N/A")</span>
                     </div>
                     <div class="detail-item">
                         <span class="detail-label">Registration</span>
                         <span class="detail-value">@(Model.Vehicle?.Registration ?? "N/A")</span>
                     </div>
                 </div>
+
+                @if (!string.IsNullOrEmpty(Model.Vehicle?.ImageUrl))
+                {
+                    <div style="margin-top: 1rem; text-align: center;">
+                        <img src="@Url.Content(Model.Vehicle.ImageUrl)" alt="Vehicle Image" style="max-width: 150px; border-radius: 12px;" />
+                    </div>
+                }
             </div>
 
             @if (Model.IsEmergency)
             {
                 <div class="emergency-alert">
                     <i class="fas fa-exclamation-triangle"></i>
-                    <span>PRIORITY EMERGENCY RESPONSE ACTIVATED</span>
+                    <span>Emergency SOS Booking</span>
                 </div>
             }
 
@@ -297,7 +360,7 @@
         </div>
     </div>
     <script>
-    // Highlight emergency details
+    
     if (@Model.IsEmergency.ToString().ToLower()) {
         document.querySelectorAll('.confirmation-section h2').forEach(header => {
             header.style.color = 'var(--emergency)';

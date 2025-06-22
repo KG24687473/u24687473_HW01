@@ -1,7 +1,439 @@
-﻿
-@{
-    ViewBag.Title = "Manage";
+﻿@{
+    ViewBag.Title = "Manage Drivers and Vehicles";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var drivers = ViewBag.Drivers as List<u24687473_HW01.Models.Driver>;
+    var vehicles = ViewBag.Vehicles as List<u24687473_HW01.Models.Vehicle>;
+    var services = ViewBag.Services as List<string>;
 }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewBag.Title - RescueBus</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        :root {
+            --primary: #0066cc;
+            --primary-dark: #0052a3;
+            --emergency: #e63946;
+            --emergency-dark: #c53030;
+            --dark: #2d3748;
+            --medium: #4a5568;
+            --light: #f7fafc;
+            --white: #ffffff;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.12);
+            --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+        }
 
-<h2>Manage</h2>
+        h2, h3 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+            line-height: 1.2;
+        }
 
+        .form-inline input,
+        .form-inline select {
+            margin-right: 1rem;
+        }
+
+        .form-row input {
+            margin-bottom: 0.5rem;
+            margin-right: 0.5rem;
+        }
+
+        .form-row button {
+            height: 38px;
+        }
+
+        .table img {
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .table th, .table td {
+            vertical-align: middle;
+        }
+
+        .btn {
+            font-size: 0.875rem;
+        }
+
+        .btn-sm {
+            padding: 0.375rem 0.75rem;
+        }
+
+        .btn + .btn {
+            margin-left: 0.5rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: var(--light);
+        }
+
+        .container {
+            margin: 0 auto;
+        }
+
+        .navbar {
+            background: linear-gradient(135deg, var(--dark) 0%, #1a202c 100%);
+            color: var(--white);
+            height: 80px;
+            display: flex;
+            align-items: center;
+            box-shadow: var(--shadow-md);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            width: 100%;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: var(--white);
+            text-decoration: none;
+        }
+
+        .logo-img {
+            height: 40px;
+            width: auto;
+            display: block;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: var(--white);
+            font-weight: 500;
+            text-decoration: none;
+        }
+
+            .nav-link:hover {
+                color: var(--primary);
+            }
+
+        .nav-cta {
+            background-color: var(--emergency);
+            color: white !important;
+            padding: 0.6rem 1.5rem;
+            border-radius: var(--radius-md);
+            transition: all 0.3s ease;
+        }
+
+            .nav-cta:hover {
+                background-color: var(--emergency-dark);
+                transform: translateY(-2px);
+            }
+    </style>
+</head>
+
+<body class="container-fluid py-4">
+
+    <h2 class="mb-4 text-center font-weight-bold">Manage Drivers and Vehicles</h2>
+
+    <div class="card mb-4 shadow-sm">
+        <div class="card-header bg-dark text-white font-weight-bold" id="driverFormTitle">Add New Driver</div>
+        <div class="card-body">
+            @using (Html.BeginForm("AddDriver", "Manage", FormMethod.Post, new { id = "driverForm" }))
+            {
+                <input type="hidden" name="Id" id="driverId" value="" />
+                <div class="form-row">
+                    <div class="form-group col-md-2">
+                        <input name="Name" id="driverName" class="form-control" placeholder="Name" required />
+                    </div>
+                    <div class="form-group col-md-2">
+                        <input name="Phone" id="driverPhone" class="form-control" placeholder="Phone" required />
+                    </div>
+                    <div class="form-group col-md-2">
+                        <input name="Certification" id="driverCert" class="form-control" placeholder="Certification" required />
+                    </div>
+                    <div class="form-group col-md-2">
+                        <select name="ServiceType" id="driverService" class="form-control" required>
+                            <option value="" disabled selected>Select Service</option>
+                            @foreach (var service in services)
+                            {
+                                <option value="@service">@service</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <input name="ImageUrl" id="driverImage" class="form-control" placeholder="Image URL" required />
+                    </div>
+                    <div class="form-group col-md-1 d-flex align-items-center">
+                        <button type="submit" id="driverSubmitBtn" class="btn btn-success btn-block">Add</button>
+                    </div>
+                </div>
+            }
+            <button type="button" id="driverCancelBtn" class="btn btn-secondary mt-2" style="display:none;">Cancel</button>
+        </div>
+    </div>
+
+ 
+    <div class="card mb-4 shadow-sm">
+        <div class="card-header bg-dark text-white font-weight-bold" id="vehicleFormTitle">Add New Vehicle</div>
+        <div class="card-body">
+            @using (Html.BeginForm("AddVehicle", "Manage", FormMethod.Post, new { id = "vehicleForm" }))
+            {
+                <input type="hidden" name="Id" id="vehicleId" value="" />
+                <div class="form-row">
+                    <div class="form-group col-md-2">
+                        <input name="Type" id="vehicleType" class="form-control" placeholder="Type" required />
+                    </div>
+                    <div class="form-group col-md-2">
+                        <input name="Registration" id="vehicleReg" class="form-control" placeholder="Registration" required />
+                    </div>
+                    <div class="form-group col-md-2">
+                        <select name="ServiceType" id="vehicleService" class="form-control" required>
+                            <option value="" disabled selected>Select Service</option>
+                            @foreach (var service in services)
+                            {
+                                <option value="@service">@service</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <input name="ImageUrl" id="vehicleImage" class="form-control" placeholder="Image URL" required />
+                    </div>
+                    <div class="form-group col-md-1 d-flex align-items-center">
+                        <button type="submit" id="vehicleSubmitBtn" class="btn btn-success btn-block">Add</button>
+                    </div>
+                </div>
+            }
+            <button type="button" id="vehicleCancelBtn" class="btn btn-secondary mt-2" style="display:none;">Cancel</button>
+        </div>
+    </div>
+
+ 
+    <div class="card mb-4 shadow-sm">
+        <div class="card-header bg-primary text-white font-weight-bold">Search Drivers</div>
+        <div class="card-body">
+            @using (Html.BeginForm("Manage", "Manage", FormMethod.Get, new { @class = "form-inline" }))
+            {
+                <input type="text" name="searchName" class="form-control mr-2 mb-2" placeholder="Driver Name" />
+                <select name="searchService" class="form-control mr-2 mb-2">
+                    <option value="">All Services</option>
+                    @foreach (var service in services)
+                    {
+                        <option value="@service">@service</option>
+                    }
+                </select>
+                <button type="submit" class="btn btn-info mb-2">Search</button>
+            }
+        </div>
+    </div>
+
+
+    <div class="mb-4 text-right">
+        @Html.ActionLink("Export Vehicle List", "ExportVehicles", null, new { @class = "btn btn-outline-primary" })
+    </div>
+
+
+    <div class="card mb-4 shadow-sm">
+        <div class="card-header bg-primary text-white font-weight-bold">Drivers</div>
+        <div class="card-body p-0">
+            <table class="table table-hover table-bordered mb-0">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Image</th>
+                        <th>Name</th>
+                        <th>Phone</th>
+                        <th>Cert</th>
+                        <th>Service</th>
+                        <th class="text-center">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var d in drivers)
+                    {
+                        <tr data-id="@d.Id" data-name="@d.Name" data-phone="@d.Phone" data-cert="@d.Certification" data-service="@d.ServiceType" data-imageurl="@d.ImageUrl">
+                            <td>
+                                <img src="@(!string.IsNullOrWhiteSpace(d.ImageUrl) ? d.ImageUrl : Url.Content("~/Images/defaultDriver.jpg"))"
+                                     alt="Driver Image"
+                                     width="100"
+                                     class="img-thumbnail" />
+                            </td>
+                            <td>@d.Name</td>
+                            <td>@d.Phone</td>
+                            <td>@d.Certification</td>
+                            <td>@d.ServiceType</td>
+                            <td class="text-center">
+                                <div class="btn-group btn-group-sm" role="group">
+                                    @using (Html.BeginForm("DeleteDriver", "Manage", FormMethod.Post))
+                                    {
+                                        @Html.Hidden("id", d.Id)
+                                        <button type="submit" class="btn btn-danger px-3">Delete</button>
+                                    }
+                                    <button type="button" class="btn btn-secondary px-3 driver-update-btn">Update</button>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+ 
+    <div class="card mb-5 shadow-sm">
+        <div class="card-header bg-primary text-white font-weight-bold">Vehicles</div>
+        <div class="card-body p-0">
+            <table class="table table-hover table-bordered mb-0">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Image</th>
+                        <th>Type</th>
+                        <th>Reg</th>
+                        <th>Service</th>
+                        <th class="text-center">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var v in vehicles)
+                    {
+                        <tr data-id="@v.Id" data-type="@v.Type" data-reg="@v.Registration" data-service="@v.ServiceType" data-imageurl="@v.ImageUrl">
+                            <td>
+                                <img src="@(!string.IsNullOrWhiteSpace(v.ImageUrl) ? v.ImageUrl : Url.Content("~/Images/defaultVehicle.png"))"
+                                     alt="Vehicle Image"
+                                     width="100"
+                                     class="img-thumbnail" />
+                            </td>
+                            <td>@v.Type</td>
+                            <td>@v.Registration</td>
+                            <td>@v.ServiceType</td>
+                            <td class="text-center">
+                                <div class="btn-group btn-group-sm" role="group">
+                                    @using (Html.BeginForm("DeleteVehicle", "Manage", FormMethod.Post))
+                                    {
+                                        @Html.Hidden("id", v.Id)
+                                        <button type="submit" class="btn btn-danger px-3">Delete</button>
+                                    }
+                                    <button type="button" class="btn btn-secondary px-3 vehicle-update-btn">Update</button>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+     
+        const driverFormTitle = document.getElementById('driverFormTitle');
+        const driverSubmitBtn = document.getElementById('driverSubmitBtn');
+        const driverCancelBtn = document.getElementById('driverCancelBtn');
+        const driverForm = document.getElementById('driverForm');
+
+        const driverId = document.getElementById('driverId');
+        const driverName = document.getElementById('driverName');
+        const driverPhone = document.getElementById('driverPhone');
+        const driverCert = document.getElementById('driverCert');
+        const driverService = document.getElementById('driverService');
+        const driverImage = document.getElementById('driverImage');
+
+        document.querySelectorAll('.driver-update-btn').forEach(button => {
+            button.addEventListener('click', e => {
+                const row = e.target.closest('tr');
+                driverId.value = row.getAttribute('data-id');
+                driverName.value = row.getAttribute('data-name');
+                driverPhone.value = row.getAttribute('data-phone');
+                driverCert.value = row.getAttribute('data-cert');
+                driverService.value = row.getAttribute('data-service');
+                driverImage.value = row.getAttribute('data-imageurl');
+
+                driverFormTitle.textContent = 'Update Driver';
+                driverSubmitBtn.textContent = 'Confirm';
+                driverForm.action = '@Url.Action("UpdateDriver", "Manage")';
+                driverCancelBtn.style.display = 'inline-block';
+            });
+        });
+
+        driverCancelBtn.addEventListener('click', () => {
+            driverId.value = '';
+            driverName.value = '';
+            driverPhone.value = '';
+            driverCert.value = '';
+            driverService.value = '';
+            driverImage.value = '';
+
+            driverFormTitle.textContent = 'Add New Driver';
+            driverSubmitBtn.textContent = 'Add';
+            driverForm.action = '@Url.Action("AddDriver", "Manage")';
+            driverCancelBtn.style.display = 'none';
+        });
+
+ 
+        const vehicleFormTitle = document.getElementById('vehicleFormTitle');
+        const vehicleSubmitBtn = document.getElementById('vehicleSubmitBtn');
+        const vehicleCancelBtn = document.getElementById('vehicleCancelBtn');
+        const vehicleForm = document.getElementById('vehicleForm');
+
+        const vehicleId = document.getElementById('vehicleId');
+        const vehicleType = document.getElementById('vehicleType');
+        const vehicleReg = document.getElementById('vehicleReg');
+        const vehicleService = document.getElementById('vehicleService');
+        const vehicleImage = document.getElementById('vehicleImage');
+
+        document.querySelectorAll('.vehicle-update-btn').forEach(button => {
+            button.addEventListener('click', e => {
+                const row = e.target.closest('tr');
+                vehicleId.value = row.getAttribute('data-id');
+                vehicleType.value = row.getAttribute('data-type');
+                vehicleReg.value = row.getAttribute('data-reg');
+                vehicleService.value = row.getAttribute('data-service');
+                vehicleImage.value = row.getAttribute('data-imageurl');
+
+                vehicleFormTitle.textContent = 'Update Vehicle';
+                vehicleSubmitBtn.textContent = 'Confirm';
+                vehicleForm.action = '@Url.Action("UpdateVehicle", "Manage")';
+                vehicleCancelBtn.style.display = 'inline-block';
+            });
+        });
+
+        vehicleCancelBtn.addEventListener('click', () => {
+            vehicleId.value = '';
+            vehicleType.value = '';
+            vehicleReg.value = '';
+            vehicleService.value = '';
+            vehicleImage.value = '';
+
+            vehicleFormTitle.textContent = 'Add New Vehicle';
+            vehicleSubmitBtn.textContent = 'Add';
+            vehicleForm.action = '@Url.Action("AddVehicle", "Manage")';
+            vehicleCancelBtn.style.display = 'none';
+        });
+    </script>
+
+</body>
+</html>

@@ -110,7 +110,7 @@
             transform: translateY(-2px);
         }
 
-        /* Hero Section */
+    
         .hero {
             display: flex;
             flex-direction: column;
@@ -179,7 +179,7 @@
             box-shadow: var(--shadow-md);
         }
 
-        /* Features Section */
+    
         .features {
             padding: 4rem 0;
             background-color: var(--white);
@@ -244,8 +244,6 @@
             line-height: 1.6;
         }
 
-        /* Responsive Adjustments */
-
             .action-buttons {
                 flex-direction: column;
                 width: 100%;
@@ -268,21 +266,17 @@
 </head>
 <body>
     <main class="hero">
-        <h1>Emergency Medical Transport When You Need It Most</h1>
-        <p>24/7 emergency response and medical transportation services with professional care teams</p>
+        <h1>RescueBus Emergency System</h1>
+        <p>Please select a type of booking:</p>
 
         <div class="action-buttons">
-            <a href="@Url.Action("SelectService", "Booking")" class="btn btn-primary">
-                <i class="fas fa-ambulance"></i> Book Ambulance
-            </a>
-            <a href="@Url.Action("CreateSOSBooking", "Booking")" class="btn btn-emergency">
-                <i class="fas fa-bolt"></i> S.O.S Emergency
-            </a>
+            <a href="@Url.Action("SelectService", "Booking")" class="btn btn-primary">Book Ambulance</a>
+            <a href="@Url.Action("CreateSOSBooking", "Booking")" class="btn btn-emergency">S.O.S Emergency</a>
         </div>
     </main>
 
     <script>
-        // Smooth scrolling for anchor links
+        
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -292,7 +286,7 @@
             });
         });
 
-        // Emergency button confirmation
+      
         document.querySelector('.btn-emergency').addEventListener('click', function (e) {
             if (!confirm('Are you sure this is a life-threatening emergency?')) {
                 e.preventDefault();

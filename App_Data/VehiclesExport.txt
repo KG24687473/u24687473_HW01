@@ -1,0 +1,12 @@
+VH-ALS1 | ALS Ambulance 1 | ALS-001 | Advanced Life Support | 
+VH-ALS2 | ALS Ambulance 2 | ALS-002 | Advanced Life Support | 
+VH-BLS1 | BLS Ambulance 1 | BLS-001 | Basic Life Support | 
+VH-BLS1 | BLS Ambulance 2 | BLS-002 | Basic Life Support | 
+VH-PS1 | PS Ambulance 1 | PS-001 | Patient Support | 
+VH-PS1 | PS Ambulance 1 | PS-002 | Patient Support | 
+VH-MUV1 | MUV Ambulance 1 | MUV-001 | Medical Utility Vehicle | 
+VH-MUV1 | MUV Ambulance 2 | MUV-002 | Medical Utility Vehicle | 
+VH-EMA1 | EMA Ambulance 1 | EMA-001 | Event Medical Ambulance | 
+VH-EMA1 | EMA Ambulance 2 | EMA-002 | Event Medical Ambulance | 
+VH-AA1 | AA Helicopter 1 | AA-001 | Air Ambulance | 
+VH-AA1 | AA Helicopter 2 | AA-002 | Air Ambulance | 

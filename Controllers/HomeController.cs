@@ -13,7 +13,7 @@ namespace u24687473_HW01.Controllers
 
         public ActionResult RideHistory()
         {
-            // Get bookings from BookingController
+           
             var bookings = BookingController.GetBookings()
                 .Select(b => new Booking
                 {
@@ -34,5 +34,12 @@ namespace u24687473_HW01.Controllers
 
             return View(bookings);
         }
+
+        public ActionResult Manage()
+        {
+
+            return View();
+        }
+
     }
 }

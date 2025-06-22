@@ -11,6 +11,7 @@ namespace u24687473_HW01.Models
         public string Name { get; set; }
         public string Phone { get; set; }
         public string Certification { get; set; }
-        public string ServiceType { get; set; } 
+        public string ServiceType { get; set; }
+        public string ImageUrl { get; set; }
     }
 }
