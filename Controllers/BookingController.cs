@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using u24687473_HW01.Models;
-
+ /*Paramedic photos created with the help of AI*/
 namespace u24687473_HW01.Controllers
 {
     public class BookingController : Controller
@@ -12,7 +12,7 @@ namespace u24687473_HW01.Controllers
         public static List<Driver> _drivers = new List<Driver>();
         public static List<Vehicle> _vehicles = new List<Vehicle>();
 
-     
+    
         static BookingController()
         {
             

@@ -145,7 +145,6 @@
             border-radius: var(--radius-sm);
         }
 
-        /* Form styles */
         .booking-form {
             background: var(--white);
             border-radius: var(--radius-lg);
@@ -368,7 +367,7 @@
                     e.preventDefault();
                     alert('Please fill in all required emergency information');
                 } else {
-                    if (confirm('CONFIRM EMERGENCY DISPATCH\n\nThis will alert the emergency response team immediately.')) {
+                    if (confirm('Confirm SOS Booking\n\nThis will alert the emergency team immediately.')) {
                         return true;
                     } else {
                         e.preventDefault();
