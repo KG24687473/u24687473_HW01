@@ -156,11 +156,11 @@
     <Content Include="Images\defaultDriver.jpg" />
     <Content Include="Images\defaultVehicle.png" />
     <Content Include="Images\navIcon.png" />
-    <Content Include="Images\Paramedic1.png" />
-    <Content Include="Images\Paramedic2.png" />
-    <Content Include="Images\Paramedic3.png" />
-    <Content Include="Images\Paramedic4.png" />
-    <Content Include="Images\Paramedic5.png" />
+    <Content Include="Images\Paramedic1.jpg" />
+    <Content Include="Images\Paramedic2.jpg" />
+    <Content Include="Images\Paramedic3.jpg" />
+    <Content Include="Images\Paramedic4.jpg" />
+    <Content Include="Images\Paramedic5.jpg" />
     <Content Include="Images\Paramedic6.png" />
     <Content Include="Images\Paramedic7.png" />
     <Content Include="Scripts\app.js" />

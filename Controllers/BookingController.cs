@@ -19,28 +19,28 @@ namespace u24687473_HW01.Controllers
             _drivers = new List<Driver>
     {
         
-        new Driver { Id = "DR-ALS1", Name = "Perle Kabelenge", Phone = "083 288 1293", Certification = "ALS", ServiceType = "Advanced Life Support", ImageUrl = "/Images/Paramedic1.png" },
-        new Driver { Id = "DR-ALS2", Name = "Bilaal Abrahams", Phone = "092 238 1239", Certification = "ALS", ServiceType = "Advanced Life Support", ImageUrl = "/Images/Paramedic2.png" },
+        new Driver { Id = "DR-ALS1", Name = "Perle Kabelenge", Phone = "083 288 1293", Certification = "ALS", ServiceType = "Advanced Life Support", ImageUrl = "/Images/Paramedic1.jpg" },
+        new Driver { Id = "DR-ALS2", Name = "Bilaal Abrahams", Phone = "092 238 1239", Certification = "ALS", ServiceType = "Advanced Life Support", ImageUrl = "/Images/Paramedic2.jpg" },
         
        
-        new Driver { Id = "DR-BLS1", Name = "Saskia Naidoo", Phone = "011 123 4566", Certification = "BLS", ServiceType = "Basic Life Support", ImageUrl = "/Images/Paramedic3.png" },
-        new Driver { Id = "DR-BLS2", Name = "Yasmeka Naidoo", Phone = "023 143 3555", Certification = "BLS", ServiceType = "Basic Life Support", ImageUrl = "/Images/Paramedic5.png"},
+        new Driver { Id = "DR-BLS1", Name = "Saskia Naidoo", Phone = "011 123 4566", Certification = "BLS", ServiceType = "Basic Life Support", ImageUrl = "/Images/Paramedic3.jpg" },
+        new Driver { Id = "DR-BLS2", Name = "Yasmeka Naidoo", Phone = "023 143 3555", Certification = "BLS", ServiceType = "Basic Life Support", ImageUrl = "/Images/Paramedic5.jpg"},
         
         
         new Driver { Id = "DR-PS1", Name = "Doomy Pather", Phone = "045 487 4867", Certification = "PS", ServiceType = "Patient Support", ImageUrl = "/Images/Paramedic7.png" },
-        new Driver { Id = "DR-PS2", Name = "Nish Maharaj", Phone = "045 456 4807", Certification = "PS", ServiceType = "Patient Support", ImageUrl = "/Images/Paramedic1.png" },
+        new Driver { Id = "DR-PS2", Name = "Nish Maharaj", Phone = "045 456 4807", Certification = "PS", ServiceType = "Patient Support", ImageUrl = "/Images/Paramedic1.jpg" },
         
        
         new Driver { Id = "DR-MUV1", Name = "Amy Kromm", Phone = "029 784 7365", Certification = "MUV", ServiceType = "Medical Utility Vehicle", ImageUrl = "/Images/Paramedic6.png"},
-        new Driver { Id = "DR-MUV2", Name = "Bryce Orchard", Phone = "029 984 1643", Certification = "MUV", ServiceType = "Medical Utility Vehicle", ImageUrl = "/Images/Paramedic4.png" },
+        new Driver { Id = "DR-MUV2", Name = "Bryce Orchard", Phone = "029 984 1643", Certification = "MUV", ServiceType = "Medical Utility Vehicle", ImageUrl = "/Images/Paramedic4.jpg" },
         
         
-        new Driver { Id = "DR-EMA1", Name = "Veer Gosai", Phone = "072 784 7635", Certification = "EMA", ServiceType = "Event Medical Ambulance", ImageUrl = "/Images/Paramedic2.png" },
-        new Driver { Id = "DR-EMA2", Name = "Chaydin Govender", Phone = "023 764 8335", Certification = "EMA", ServiceType = "Event Medical Ambulance", ImageUrl = "/Images/Paramedic4.png" },
+        new Driver { Id = "DR-EMA1", Name = "Veer Gosai", Phone = "072 784 7635", Certification = "EMA", ServiceType = "Event Medical Ambulance", ImageUrl = "/Images/Paramedic2.jpg" },
+        new Driver { Id = "DR-EMA2", Name = "Chaydin Govender", Phone = "023 764 8335", Certification = "EMA", ServiceType = "Event Medical Ambulance", ImageUrl = "/Images/Paramedic4.jpg" },
         
        
         new Driver { Id = "DR-AA1", Name = "Roarke Bailey", Phone = "098 718 9205", Certification = "AA", ServiceType = "Air Ambulance", ImageUrl = "/Images/Paramedic6.png" },
-        new Driver { Id = "DR-AA2", Name = "Pabi Prinsloo", Phone = "011 778 0023", Certification = "AA", ServiceType = "Air Ambulance",ImageUrl = "/Images/Paramedic5.png" }
+        new Driver { Id = "DR-AA2", Name = "Pabi Prinsloo", Phone = "011 778 0023", Certification = "AA", ServiceType = "Air Ambulance",ImageUrl = "/Images/Paramedic5.jpg" }
     };
 
             
